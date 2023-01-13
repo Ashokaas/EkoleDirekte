@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Ekole Direkte</string>
+    <string name="main_title">Ekole Direkte login</string>
+    <string name="connect_button_title">Se connecter</string>
+</resources>
