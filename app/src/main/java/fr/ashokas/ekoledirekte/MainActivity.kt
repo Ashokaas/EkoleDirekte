@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         val input1Value = input1.text.toString()
         val input2Value = input2.text.toString()
-        performAction(input1Value, input2Value)
+
         }
     }
 }
