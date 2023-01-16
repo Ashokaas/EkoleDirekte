@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        // Récupér
         var button = findViewById<Button>(R.id.login_button)
         var input1 = findViewById<EditText>(R.id.user_id)
         var input2 = findViewById<EditText>(R.id.user_mdp)
