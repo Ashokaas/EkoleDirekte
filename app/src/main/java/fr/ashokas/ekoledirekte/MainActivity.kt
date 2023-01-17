@@ -10,16 +10,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Récupér
-        var button = findViewById<Button>(R.id.login_button)
-        var input1 = findViewById<EditText>(R.id.user_id)
-        var input2 = findViewById<EditText>(R.id.user_mdp)
+        // Récupérer les infos
+        var button_login = findViewById<Button>(R.id.login_button)
+        var input_identifiant = findViewById<EditText>(R.id.user_id)
+        var input_password = findViewById<EditText>(R.id.user_mdp)
 
-        button.setOnClickListener {
+        button_login.setOnClickListener {
 
-        val input1Value = input1.text.toString()
-        val input2Value = input2.text.toString()
-
+        val identifiant_value = input_identifiant.text.toString()
+        val password_value = input_password.text.toString()
+        println("id $identifiant_value")
+        println("psw $password_value")
         }
     }
 }

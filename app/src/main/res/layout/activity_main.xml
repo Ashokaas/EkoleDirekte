@@ -41,7 +41,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:hint="@string/mdp_text"
         android:padding="16dp"
         android:textColor="#000"
