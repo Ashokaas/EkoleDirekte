@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 
+import fr.ashokas.ekoledirekte.login
+
+
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val identifiant_value = input_identifiant.text.toString()
         val password_value = input_password.text.toString()
         println("id $identifiant_value")
-        println("psw $password_value")
+        println(login(identifiant_value, password_value))
         }
     }
 }

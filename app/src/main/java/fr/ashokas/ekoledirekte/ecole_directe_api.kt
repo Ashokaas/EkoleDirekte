@@ -1,29 +1,40 @@
 package fr.ashokas.ekoledirekte
 
-import khttp.post
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import org.json.JSONObject
 
-fun login(user: String, password: String): Map<String, String> {
+
+public fun login(user: String, password: String): Map<String, String> {
     val version = "4.18.3"
-    val header = mapOf(
-        "authority" to "api.ecoledirecte.com",
-        "accept" to "application/json, text/plain, */*",
-        "user-agent" to "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
-        "content-type" to "application/x-www-form-urlencoded",
-        "sec-gpc" to "1",
-        "origin" to "https://www.ecoledirecte.com",
-        "sec-fetch-site" to "same-site",
-        "sec-fetch-mode" to "cors",
-        "sec-fetch-dest" to "empty",
-        "referer" to "https://www.ecoledirecte.com/",
-        "accept-language" to "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7"
-    )
-    val data = "data={\n\t\"uuid\": \"\",\n\t\"identifiant\": \"$user\",\n\t\"motdepasse\": \"$password\"\n}"
-    val url = "https://api.ecoledirecte.com/v3/login.awp?v=$version"
-    val response = post(url, data = data, headers = header).jsonObject
+    val client = OkHttpClient()
+    val mediaType = MediaType.parse("application/json; charset=utf-8")
+    val body = RequestBody.create(mediaType, "data={\"uuid\":\"\",\"identifiant\":\"$user\",\"motdepasse\":\"$password\"}")
+    val request = Request.Builder()
+        .url("https://api.ecoledirecte.com/v3/login.awp?v=$version")
+        .post(body)
+        .addHeader("authority", "api.ecoledirecte.com")
+        .addHeader("accept", "application/json, text/plain, */*")
+        .addHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+        .addHeader("content-type", "application/x-www-form-urlencoded")
+        .addHeader("sec-gpc", "1")
+        .addHeader("origin", "https://www.ecoledirecte.com")
+        .addHeader("sec-fetch-site", "same-site")
+        .addHeader("sec-fetch-mode", "cors")
+        .addHeader("sec-fetch-dest", "empty")
+        .addHeader("referer", "https://www.ecoledirecte.com/")
+        .addHeader("accept-language", "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7")
+        .build()
+    val response = client.newCall(request).execute()
+    val jsonString = response.body()?.string()
+    val jsonObject = JSONObject(jsonString)
     val account = mapOf(
-        "token" to response["token"],
-        "id" to response["data"]["accounts"][0]["id"],
-        "email" to response["data"]["accounts"][0]["email"]
+        "token" to jsonObject.getString("token"),
+        "id" to jsonObject.getJSONObject("data").getJSONArray("accounts").getJSONObject(0).getString("id"),
+        "email" to jsonObject.getJSONObject("data").getJSONArray("accounts").getJSONObject(0).getString("email")
     )
     return account
 }
+
