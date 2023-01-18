@@ -7,7 +7,7 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 
 
-public fun login(user: String, password: String): Map<String, String> {
+fun login(user: String, password: String): Map<String, String> {
     val version = "4.18.3"
     val client = OkHttpClient()
     val mediaType = MediaType.parse("application/json; charset=utf-8")
