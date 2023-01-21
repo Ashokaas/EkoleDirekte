@@ -35,39 +35,16 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun loginEDaccount(identifiant: String, password: String): String? {
         return withContext(Dispatchers.IO) {
-            val version = "4.18.3"
-            val url = "https://api.ecoledirecte.com/v3/login.awp?v=$version"
             val client = OkHttpClient()
-
-            val json = """
-                {
-                    "uuid": "",
-                    "identifiant": "$identifiant",
-                    "motdepasse": "$password"
-                }
-            """
-
-            val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)
-
+            val payload = "data={\"identifiant\":\"$identifiant\",\"motdepasse\":\"$password\"}"
+            val body = RequestBody.create(MediaType.parse("text/plain"), payload)
             val request = Request.Builder()
-                .url(url)
-                .addHeader("authority", "api.ecoledirecte.com")
-                .addHeader("accept", "application/json, text/plain, */*")
-                .addHeader(
-                    "user-agent",
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
-                )
-                .addHeader("content-type", "application/x-www-form-urlencoded")
-                .addHeader("sec-gpc", "1")
-                .addHeader("origin", "https://www.ecoledirecte.com")
-                .addHeader("sec-fetch-site", "same-site")
-                .addHeader("sec-fetch-mode", "cors")
-                .addHeader("sec-fetch-dest", "empty")
-                .addHeader("referer", "https://www.ecoledirecte.com/")
-                .addHeader("accept-language", "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7")
+                .url("https://api.ecoledirecte.com/v3/login.awp")
                 .post(body)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                .addHeader("Referer", "https://www.ecoledirecte.com/")
                 .build()
-
             val response = client.newCall(request).execute()
 
             return@withContext response.body()?.string()
