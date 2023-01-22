@@ -57,4 +57,15 @@
         android:textAlignment="center"
         android:text="@string/connect_button_title" />
 
+    <TextView
+        android:id="@+id/account_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:text="Info du compte" />
+
   </LinearLayout>

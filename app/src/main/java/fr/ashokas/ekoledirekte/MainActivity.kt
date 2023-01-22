@@ -1,8 +1,10 @@
 package fr.ashokas.ekoledirekte
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
 import okhttp3.*
@@ -28,6 +30,12 @@ class MainActivity : AppCompatActivity() {
                 val account = loginEDaccount(identifiantValue, passwordValue)
                 withContext(Dispatchers.Main) {
                     println(account)
+                    /*var intent = Intent(this@MainActivity, Accueil::class.java)
+                    intent.putExtra("account", account)
+                    startActivity(intent)*/
+                    findViewById<TextView>(R.id.account_info).text = account.toString()
+
+
                 }
             }
         }
