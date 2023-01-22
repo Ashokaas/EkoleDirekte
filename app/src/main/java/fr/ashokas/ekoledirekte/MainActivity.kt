@@ -6,9 +6,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.JsonArray
 import kotlinx.coroutines.*
 import okhttp3.*
 
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,16 +27,36 @@ class MainActivity : AppCompatActivity() {
             val identifiantValue = inputIdentifiant.text.toString()
             val passwordValue = inputPassword.text.toString()
             println("Identifiant $identifiantValue")
-            println("Mot de passe $passwordValue")
+
+            println("Mot de passe : ")
 
             CoroutineScope(Dispatchers.IO).launch {
-                val account = loginEDaccount(identifiantValue, passwordValue)
+
+                var account = loginEDaccount(identifiantValue, passwordValue)
+
                 withContext(Dispatchers.Main) {
-                    println(account)
                     /*var intent = Intent(this@MainActivity, Accueil::class.java)
                     intent.putExtra("account", account)
                     startActivity(intent)*/
-                    findViewById<TextView>(R.id.account_info).text = account.toString()
+                    println(account)
+                    var account_json = JSONObject(account)
+
+
+                    if (account_json.getInt("code") == 200) {
+                        val data = account_json.getJSONObject("data")
+                        val accounts = data.getJSONArray("accounts")
+                        val firstAccount = accounts.getJSONObject(0)
+                        val prenom = firstAccount.getString("prenom")
+                        val nom = firstAccount.getString("nom")
+                        val email = firstAccount.getString("email")
+                        findViewById<TextView>(R.id.text_view_error_login).text = prenom + " " + nom + " " + email
+                    }
+                    if (account_json.getInt("code") == 505) {
+                        findViewById<TextView>(R.id.text_view_error_login).text = account_json.getString("message")
+                    }
+
+
+
 
 
                 }

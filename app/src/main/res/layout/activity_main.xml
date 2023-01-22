@@ -9,10 +9,32 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Bienvenue sur l'application Ekole Direkte !"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_light"
+        android:text="Ce projet n'a absolument rien à voir avec un certain 'Ecole Directe'"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/login_img" />
+        android:src="@drawable/ed_logo_png" />
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +51,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
         android:hint="@string/identifiant_text"
         android:padding="16dp"
         android:textColor="#000"
@@ -58,7 +80,7 @@
         android:text="@string/connect_button_title" />
 
     <TextView
-        android:id="@+id/account_info"
+        android:id="@+id/text_view_error_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
@@ -66,6 +88,6 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:text="Info du compte" />
+        android:text="" />
 
   </LinearLayout>
