@@ -26,9 +26,12 @@ class MainActivity : AppCompatActivity() {
         buttonLogin.setOnClickListener {
             val identifiantValue = inputIdentifiant.text.toString()
             val passwordValue = inputPassword.text.toString()
+            var shownPassword = "*"
+            for (i in 1 until passwordValue.length) {
+                shownPassword += "*"
+            }
             println("Identifiant $identifiantValue")
-
-            println("Mot de passe : ")
+            println("Mot de passe : $shownPassword")
 
             CoroutineScope(Dispatchers.IO).launch {
 
