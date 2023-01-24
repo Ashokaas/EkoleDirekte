@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
             CoroutineScope(Dispatchers.IO).launch {
 
-                var account = loginEDaccount(identifiantValue, passwordValue)
+                val account = loginEDaccount(identifiantValue, passwordValue)
 
                 withContext(Dispatchers.Main) {
                     /*var intent = Intent(this@MainActivity, Accueil::class.java)
@@ -49,10 +49,13 @@ class MainActivity : AppCompatActivity() {
                         val data = account_json.getJSONObject("data")
                         val accounts = data.getJSONArray("accounts")
                         val firstAccount = accounts.getJSONObject(0)
+                        val modules = firstAccount.getJSONArray("modules")
                         val prenom = firstAccount.getString("prenom")
                         val nom = firstAccount.getString("nom")
                         val email = firstAccount.getString("email")
                         findViewById<TextView>(R.id.text_view_error_login).text = prenom + " " + nom + " " + email
+                        println("Account: $accounts")
+                        println("Module : ${modules.getJSONObject(3)}")
                     }
                     if (account_json.getInt("code") == 505) {
                         findViewById<TextView>(R.id.text_view_error_login).text = account_json.getString("message")
@@ -84,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             return@withContext response.body()?.string()
         }
     }
+
 }
 
 
