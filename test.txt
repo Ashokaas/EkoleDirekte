@@ -1,11 +1,9 @@
 package fr.ashokas.ekoledirekte
 
-import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -16,63 +14,64 @@ import org.json.JSONObject
 class AccountData {
     companion object Account {
         fun create(): AccountData = AccountData()
-    private suspend fun loginEDaccount(identifiant: String, password: String): String? {
-        return withContext(Dispatchers.IO) {
-            val client = OkHttpClient()
-            val payload = "data={\"identifiant\":\"$identifiant\",\"motdepasse\":\"$password\"}"
-            val body = RequestBody.create(MediaType.parse("text/plain"), payload)
-            val request = Request.Builder()
-                .url("https://api.ecoledirecte.com/v3/login.awp")
-                .post(body)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
-                .addHeader("Referer", "https://www.ecoledirecte.com/")
-                .build()
-            val response = client.newCall(request).execute()
+        private suspend fun loginEDaccount(identifiant: String, password: String): String? {
+            return withContext(Dispatchers.IO) {
+                val client = OkHttpClient()
+                val payload = "data={\"identifiant\":\"$identifiant\",\"motdepasse\":\"$password\"}"
+                val body = RequestBody.create(MediaType.parse("text/plain"), payload)
+                val request = Request.Builder()
+                    .url("https://api.ecoledirecte.com/v3/login.awp")
+                    .post(body)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                    .addHeader("Referer", "https://www.ecoledirecte.com/")
+                    .build()
+                val response = client.newCall(request).execute()
 
-            return@withContext response.body()?.string()
-        }
-    }
-    public fun getAccountData(identifiant: String, password: String): Any {
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val account = loginEDaccount(identifiant, password)
-
-            withContext(Dispatchers.Main) {
-                /*var intent = Intent(this@MainActivity, Accueil::class.java)
-                intent.putExtra("account", account)
-                startActivity(intent)*/
-                println(account)
-                val account_json = JSONObject(account)
-                if (account_json.getInt("code") == 200) {
-                    val data = account_json.getJSONObject("data")
-                    val accounts = data.getJSONArray("accounts")
-                    val firstAccount = accounts.getJSONObject(0)
-                    val prenom: String = firstAccount.getString("prenom")
-                    val nom: String = firstAccount.getString("nom")
-                    val email: String = firstAccount.getString("email")
-                    val datas = mapOf(
-                        "data" to data,
-                        "accounts" to accounts,
-                        "firstAccount" to firstAccount,
-                        "prenom" to prenom,
-                        "nom" to nom,
-                        "email" to email,
-                        "message" to "$prenom $nom $email"
-                    )
-                    return datas
-                }
-                if (account_json.getInt("code") == 505) {
-                    val datas = mapOf(
-                        "data" to "",
-                        "accounts" to "",
-                        "firstAccount" to "",
-                        "prenom" to "",
-                        "nom" to "",
-                        "email" to "",
-                        "message" to account_json.getString("message")
-                    )
-                }
+                return@withContext response.body()?.string()
             }
         }
-}}}
+        public fun getAccountData(identifiant: String, password: String): Any {
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val account = loginEDaccount(identifiant, password)
+
+                withContext(Dispatchers.Main) {
+                    /*var intent = Intent(this@MainActivity, Accueil::class.java)
+                    intent.putExtra("account", account)
+                    startActivity(intent)*/
+                    println(account)
+                    val accountJson = JSONObject(account)
+                    if (accountJson.getInt("code") == 200) {
+                        val data = accountJson.getJSONObject("data")
+                        val accounts = data.getJSONArray("accounts")
+                        val firstAccount = accounts.getJSONObject(0)
+                        val prenom: String = firstAccount.getString("prenom")
+                        val nom: String = firstAccount.getString("nom")
+                        val email: String = firstAccount.getString("email")
+                        val datas = mapOf(
+                            "data" to data,
+                            "accounts" to accounts,
+                            "firstAccount" to firstAccount,
+                            "prenom" to prenom,
+                            "nom" to nom,
+                            "email" to email,
+                            "message" to "$prenom $nom $email"
+                        )
+                        return@withContext datas
+                    }
+                    if (accountJson.getInt("code") == 505) {
+                        val datas = mapOf(
+                            "data" to "",
+                            "accounts" to "",
+                            "firstAccount" to "",
+                            "prenom" to "",
+                            "nom" to "",
+                            "email" to "",
+                            "message" to accountJson.getString("message")
+                        )
+                        return@withContext datas
+                    }
+                }
+            }
+        }}}
