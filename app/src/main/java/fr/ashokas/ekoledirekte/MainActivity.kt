@@ -42,8 +42,14 @@ class MainActivity : AppCompatActivity() {
                 val prenom = datas.get("prenom")
                 val nom = datas.get("nom")
                 val email = datas.get("email")
+                val token = datas.get("token")
+                val id = datas.get("id")
+
+                val notes = AccountData.getNotes(token=token, id=id)
 
                 findViewById<TextView>(R.id.text_view_error_login).text = "$prenom $nom $email"
+
+
 
             }
         }
