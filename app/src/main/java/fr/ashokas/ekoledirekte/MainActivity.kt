@@ -46,11 +46,10 @@ class MainActivity : AppCompatActivity() {
                 val id = datas.get("id")
 
                 val notes = AccountData.getNotes(token=token, id=id)
+                // La variable ci-dessous n'a pour seul objectif de tester la fonction getNotes()
+                val moyennePremierTrim = notes.get("premierTrim").getJSONObject("ensembleMatieres").getString("moyenneGenerale")
 
-                findViewById<TextView>(R.id.text_view_error_login).text = "$prenom $nom $email"
-
-
-
+                findViewById<TextView>(R.id.text_view_error_login).text = "$prenom $nom $email \n$moyennePremierTrim"
             }
         }
     }

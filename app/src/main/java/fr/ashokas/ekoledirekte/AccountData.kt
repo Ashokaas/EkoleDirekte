@@ -52,7 +52,23 @@ class AccountData {
                 val deuxiemeTrim = notesJson.getJSONObject(1)
                 val troisiemeTrim = notesJson.getJSONObject(2)
                 val annee = notesJson.getJSONObject(3)
-            }       
+                if (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") && 
+                deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                ){
+                    val matieres: Array? = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                } else {
+                    val matieres: Array? = null
+                }
+                return mapOf(
+                    "notesJson" to notesJson,
+                    "notes" to notes,
+                    "premierTrim" to premierTrim,
+                    "deuxiemeTrim" to deuxiemeTrim,
+                    "troisiemeTrim" to troisiemeTrim,
+                    "annee" to annee,
+                    "matieres" to matieres
+                )
+            } else {return -1}
         }
         suspend fun getAccountData(identifiant: String, password: String): Map<String, Any> {
             return CoroutineScope(Dispatchers.IO).async {
