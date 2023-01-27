@@ -28,7 +28,7 @@ class AccountData {
                 return@withContext response.body()?.string()
             }
         }
-        private suspend fun getNotes(token: String, id: Int): Any {
+        suspend fun getNotes(token: String, id: Int): Map<String, Any?> {
             val notesStr = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
                 val payload = "data={\"token\":\"$token\"}"
@@ -43,7 +43,14 @@ class AccountData {
                 val response = client.newCall(request).execute()
 
                 return@withContext response.body()?.string()
-            } ?: return -1 // returns -1 if notesStr is null, pretty neat
+            } ?: return mapOf(
+                "notesJson" to "",
+                "notes" to "",
+                "premierTrim" to "",
+                "deuxiemeTrim" to "",
+                "troisiemeTrim" to "",
+                "annee" to "",
+                "matieres" to "")
 
             val notesJson = JSONObject(notesStr)
             if (notesJson.getInt("code") == 200) {
@@ -73,7 +80,14 @@ class AccountData {
                     "annee" to annee,
                     "matieres" to matieres
                 )
-            } else {return -1}
+            } else {return mapOf(
+                "notesJson" to "",
+                "notes" to "",
+                "premierTrim" to "",
+                "deuxiemeTrim" to "",
+                "troisiemeTrim" to "",
+                "annee" to "",
+                "matieres" to "")}
         }
         suspend fun getAccountData(identifiant: String, password: String): Map<String, Any> {
             return CoroutineScope(Dispatchers.IO).async {

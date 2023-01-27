@@ -1,5 +1,6 @@
 package fr.ashokas.ekoledirekte
 
+import android.annotation.SuppressLint
 import fr.ashokas.ekoledirekte.AccountData
 
 import android.os.Bundle
@@ -14,6 +15,7 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,14 +44,16 @@ class MainActivity : AppCompatActivity() {
                 val prenom = datas.get("prenom")
                 val nom = datas.get("nom")
                 val email = datas.get("email")
-                val token = datas.get("token")
-                val id = datas.get("id")
+                val token: String = datas["token"] as String
+                val id: Int = datas["id"] as Int
+                val message = datas["message"]
 
                 val notes = AccountData.getNotes(token=token, id=id)
                 // La variable ci-dessous n'a pour seul objectif de tester la fonction getNotes()
-                val moyennePremierTrim = notes.get("premierTrim").getJSONObject("ensembleMatieres").getString("moyenneGenerale")
+                val premierTrim = notes.get("premierTrim") as JSONObject
+                val moyennePremierTrim = premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
 
-                findViewById<TextView>(R.id.text_view_error_login).text = "$prenom $nom $email \n$moyennePremierTrim"
+                findViewById<TextView>(R.id.text_view_error_login).text = "$message $moyennePremierTrim"
             }
         }
     }
