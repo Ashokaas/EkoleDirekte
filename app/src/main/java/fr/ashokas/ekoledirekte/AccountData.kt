@@ -28,10 +28,10 @@ class AccountData {
                 return@withContext response.body()?.string()
             }
         }
-        private suspend fun getNotes(token: String, id) {
-            var notes = withContext(Dispatchers.IO) {
+        private suspend fun getNotes(token: String, id: Int): Any {
+            val notesStr = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
-                val payload = 'data={"token":"$token"}'
+                val payload = "data={\"token\":\"$token\"}"
                 val body = RequestBody.create(MediaType.parse("text/plain"), payload)
                 val request = Request.Builder()
                     .url("https://api.ecoledirecte.com/v3/eleves/$id/notes.awp?verbe=get&v=4.26.2")
@@ -43,25 +43,30 @@ class AccountData {
                 val response = client.newCall(request).execute()
 
                 return@withContext response.body()?.string()
-            }
-            val notesJson = JSONObject(notes)
+            } ?: return -1 // returns -1 if notesStr is null, pretty neat
+
+            val notesJson = JSONObject(notesStr)
             if (notesJson.getInt("code") == 200) {
-                notes = notesJson.getJSONArray("notes")
-                val trimestres = notesJson.getJSONArray("periodes")
-                val premierTrim = notesJson.getJSONObject(0)
-                val deuxiemeTrim = notesJson.getJSONObject(1)
-                val troisiemeTrim = notesJson.getJSONObject(2)
-                val annee = notesJson.getJSONObject(3)
-                if (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") && 
-                deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                val data = notesJson.getJSONObject("data")
+                val notes = data.getJSONArray("notes")
+                val trimestres = data.getJSONArray("periodes")
+                val premierTrim = trimestres.getJSONObject(0)
+                val deuxiemeTrim = trimestres.getJSONObject(1)
+                val troisiemeTrim = trimestres.getJSONObject(2)
+                val annee = trimestres.getJSONObject(3)
+
+                val matieres: Array<String>? = if
+                        (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") &&
+                    deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
                 ){
-                    val matieres: Array? = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                    val disciplines = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                    Array(disciplines.length()) {disciplines.getString(it)}
                 } else {
-                    val matieres: Array? = null
+                    null
                 }
                 return mapOf(
                     "notesJson" to notesJson,
-                    "notes" to notes,
+                    "notes" to notes.toString(),
                     "premierTrim" to premierTrim,
                     "deuxiemeTrim" to deuxiemeTrim,
                     "troisiemeTrim" to troisiemeTrim,
