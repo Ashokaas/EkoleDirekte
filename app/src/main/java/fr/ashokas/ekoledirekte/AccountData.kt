@@ -89,6 +89,39 @@ class AccountData {
                 "annee" to "",
                 "matieres" to "")}
         }
+        suspend fun getMessages(token: String, id: Int): Map<String, Any?> {
+            val messages = withContext(Dispatchers.IO) {
+                val client = OkHttpClient()
+                val payload = "data={\"token\":\"$token\"}"
+                val body = RequestBody.create(MediaType.parse("text/plain"), payload)
+                val requestReceived = Request.Builder()
+                    .url("https://api.ecoledirecte.com/v3/eleves/$id/messages.awp?force=false&typeRecuperation=received&idClasseur=0&orderBy=date&order=desc&query=&onlyRead=&page=0&itemsPerPage=100&getAll=0&verbe=get&v=4.26.2")
+                    .post(body)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                    .addHeader("Referer", "https://www.ecoledirecte.com/")
+                    .build()
+                val requestSent = Request.Builder()
+                    .url("https://api.ecoledirecte.com/v3/eleves/$id/messages.awp?force=false&typeRecuperation=sent&idClasseur=0&orderBy=date&order=desc&query=&onlyRead=&page=0&itemsPerPage=100&getAll=0&verbe=get&v=4.26.2")
+                    .post(body)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                    .addHeader("Referer", "https://www.ecoledirecte.com/")
+                    .build()
+                val responseReceived = client.newCall(requestReceived).execute()
+                val responseSent = client.newCall(responseSent).execute()
+
+                return@withContext [responseReceived.body()?.string(), responseSent.body()?.string()]
+            }
+            val dataReceived = messages[0].getJSONObject("data")
+            val dataSent = messages[1].getJSONObject("data")
+            val messagesReceived = data.getJSONObject("messages").getJSONArray("received")
+            val messagesSent = data.getJSONArray("messages").getJSONArray("sent")
+            return mapOf(
+                "messagesSent" to messagesSent,
+                "messagesReceived" to messagesReceived
+            )
+        }
         suspend fun getAccountData(identifiant: String, password: String): Map<String, Any> {
             return CoroutineScope(Dispatchers.IO).async {
                 val account = loginEDaccount(identifiant, password)
