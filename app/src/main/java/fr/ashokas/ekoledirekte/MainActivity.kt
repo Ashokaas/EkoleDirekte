@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
                 val premierTrim = notes.get("premierTrim") as JSONObject
                 val moyennePremierTrim = premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
 
+                val msg = AccountData.getMessages(token=token, id=id)
+                println(msg)
                 findViewById<TextView>(R.id.text_view_error_login).text = "$message $moyennePremierTrim"
             }
         }

@@ -102,15 +102,15 @@ class AccountData {
                 val troisiemeTrim = trimestres.getJSONObject(2)
                 val annee = trimestres.getJSONObject(3)
 
-                val matieres: Array<String>? = if
-                        (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") &&
-                    deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
-                ){
-                    val disciplines = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
-                    Array(disciplines.length()) {disciplines.getString(it)}
-                } else {
-                    null
-                }
+                val matieres: Array<String>? =
+                    if (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") &&
+                        deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")) {
+                        val disciplines = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
+                        Array(disciplines.length()) {disciplines.getString(it)}
+                    } else {
+                        null
+                    }
+
                 return mapOf(
                     "notesJson" to notesJson,
                     "notes" to notes.toString(),
@@ -120,7 +120,8 @@ class AccountData {
                     "annee" to annee,
                     "matieres" to matieres
                 )
-            } else {return mapOf(
+            } else {
+                return mapOf(
                 "notesJson" to "",
                 "notes" to "",
                 "premierTrim" to "",
@@ -150,19 +151,19 @@ class AccountData {
                     .addHeader("Referer", "https://www.ecoledirecte.com/")
                     .build()
                 val responseReceived = client.newCall(requestReceived).execute()
-                val responseSent = client.newCall(responseSent).execute()
+                val responseSent = client.newCall(requestSent).execute()
 
-                return@withContext [responseReceived.body()?.string(), responseSent.body()?.string()]
+                return@withContext listOf(responseReceived.body()?.string(), responseSent.body()?.string())
             }
-            val dataReceived = messages[0].getJSONObject("data")
-            val dataSent = messages[1].getJSONObject("data")
-            val messagesReceived = data.getJSONObject("messages").getJSONArray("received")
-            val messagesSent = data.getJSONArray("messages").getJSONArray("sent")
+            val dataReceived = JSONObject(messages[0]).getJSONObject("data")
+            val dataSent = JSONObject(messages[1]).getJSONObject("data")
+            val messagesReceived = dataReceived.getJSONObject("messages").getJSONArray("received")
+            val messagesSent = dataSent.getJSONObject("messages").getJSONArray("sent")
             return mapOf(
-                "messagesSent" to messagesSent,
-                "messagesReceived" to messagesReceived
+                "messagesSent" to messagesReceived,
+                "messagesReceived" to messagesSent
             )
-        }
+        }/*
         suspend fun getSchedule(token: String, id: Int): JSONObject {
             val datas: JSONObject = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
@@ -181,6 +182,6 @@ class AccountData {
             }
             val days: JSONObject = datas.getJSONObject("data")
             return days
-        }
+        }*/
     }
 }
