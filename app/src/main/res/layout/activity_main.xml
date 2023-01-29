@@ -10,6 +10,16 @@
     tools:context=".MainActivity">
 
 
+
+    <ImageButton
+        android:id="@+id/cross_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="16dp"
+        android:background="@null"
+        android:src="@drawable/baseline_exit_to_app_24" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +43,8 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
+        android:padding="-40dp"
         android:src="@drawable/ed_logo_png" />
 
     <TextView
@@ -51,12 +62,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:inputType="textNoSuggestions"
         android:hint="@string/identifiant_text"
+        android:drawableStart="@drawable/baseline_perm_identity_24"
+        android:drawablePadding="12dp"
+        style="@style/EditTextBottomBorder"
         android:padding="16dp"
         android:textColor="#000"
-        android:textSize="18sp"
-        android:background="@drawable/input_box_style" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/user_mdp"
@@ -64,17 +76,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
         android:inputType="textPassword"
+        android:drawableStart="@drawable/baseline_lock_open_24"
+        android:drawablePadding="12dp"
+        style="@style/EditTextBottomBorder"
         android:hint="@string/mdp_text"
         android:padding="16dp"
         android:textColor="#000"
-        android:textSize="18sp"
-        android:background="@drawable/input_box_style" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/login_button"
+        style="@style/ButtonLogin"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:layout_margin="13dp"
         android:fontFamily="@font/poppins_bold"
         android:textAlignment="center"
         android:text="@string/connect_button_title" />

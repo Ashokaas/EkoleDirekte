@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditTextBottomBorder">
+        <item name="android:background">@drawable/edit_text_bottom_border</item>
+    </style>
+
+    <style name="ButtonLogin">
+        <item name="android:background">@drawable/button_login</item>
+    </style>
+</resources>

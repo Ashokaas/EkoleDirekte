@@ -6,6 +6,7 @@ import fr.ashokas.ekoledirekte.AccountData
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
@@ -23,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         val buttonLogin = findViewById<Button>(R.id.login_button)
         val inputIdentifiant = findViewById<EditText>(R.id.user_id)
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
+
+        val exitButton = findViewById<ImageButton>(R.id.cross_button)
+
+        exitButton.setOnClickListener {
+            finish()
+        }
 
         buttonLogin.setOnClickListener {
             val identifiantValue = inputIdentifiant.text.toString()
@@ -53,8 +60,7 @@ class MainActivity : AppCompatActivity() {
                 val premierTrim = notes.get("premierTrim") as JSONObject
                 val moyennePremierTrim = premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
 
-                val msg = AccountData.getMessages(token=token, id=id)
-                println(msg)
+
                 findViewById<TextView>(R.id.text_view_error_login).text = "$message $moyennePremierTrim"
             }
         }
