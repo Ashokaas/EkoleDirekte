@@ -1,6 +1,7 @@
 package fr.ashokas.ekoledirekte
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import fr.ashokas.ekoledirekte.AccountData
 
 import android.os.Bundle
@@ -47,21 +48,43 @@ class MainActivity : AppCompatActivity() {
                     identifiant = identifiantValue,
                     password = passwordValue
                 )
+                findViewById<TextView>(R.id.text_view_error_login).text = datas["code"].toString()
 
-                val prenom = datas.get("prenom")
-                val nom = datas.get("nom")
-                val email = datas.get("email")
-                val token: String = datas["token"] as String
-                val id: Int = datas["id"] as Int
-                val message = datas["message"]
+                // Identifiant et/ou mdp incorrect
+                if (datas["code"] == 505) {
+                    findViewById<TextView>(R.id.text_view_error_login).text = datas["message"].toString()
+                }
 
-                val notes = AccountData.getNotes(token=token, id=id)
-                // La variable ci-dessous n'a pour seul objectif de tester la fonction getNotes()
-                val premierTrim = notes.get("premierTrim") as JSONObject
-                val moyennePremierTrim = premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
+                // Utilisateur connecté
+                if (datas["code"] == 200) {
+                    val prenom = datas.get("prenom")
+                    val nom = datas.get("nom")
+                    val email = datas.get("email")
+                    val token: String = datas["token"] as String
+                    val id: Int = datas["id"] as Int
+                    val message = datas["message"]
+
+                    val notes = AccountData.getNotes(token = token, id = id)
+                    // La variable ci-dessous n'a pour seul objectif de tester la fonction getNotes()
+                    val premierTrim = notes.get("premierTrim") as JSONObject
+                    val moyennePremierTrim =
+                        premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
+
+                    findViewById<TextView>(R.id.text_view_error_login).text = moyennePremierTrim
+
+                    val intent = Intent(this@MainActivity, Accueil::class.java)
+                    intent.putExtra("prenom", prenom.toString())
+                    intent.putExtra("nom", nom.toString())
+                    intent.putExtra("email", email.toString())
+                    intent.putExtra("token", token)
+                    intent.putExtra("id", id)
+                    intent.putExtra("message", message.toString())
+                    intent.putExtra("moyenne_premier_trim", moyennePremierTrim)
+                    startActivity(intent)
 
 
-                findViewById<TextView>(R.id.text_view_error_login).text = "$message $moyennePremierTrim"
+
+                }
             }
         }
     }
