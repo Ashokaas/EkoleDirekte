@@ -5,9 +5,14 @@ import android.content.Intent
 import fr.ashokas.ekoledirekte.AccountData
 
 import android.os.Bundle
+import android.view.View
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
@@ -19,23 +24,29 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        supportActionBar?.hide()
 
 
         val buttonLogin = findViewById<Button>(R.id.login_button)
         val inputIdentifiant = findViewById<EditText>(R.id.user_id)
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
 
-        val exitButton = findViewById<ImageButton>(R.id.cross_button)
+        val progressBar = findViewById<RelativeLayout>(R.id.progressBar)
+
+
+        /*val exitButton = findViewById<ImageButton>(R.id.cross_button)
 
         exitButton.setOnClickListener {
             finish()
-        }
+        }*/
 
         buttonLogin.setOnClickListener {
+            runOnUiThread { progressBar.visibility = View.VISIBLE }
+
+
             val identifiantValue = inputIdentifiant.text.toString()
             val passwordValue = inputPassword.text.toString()
             var shownPassword = "*"
@@ -57,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         findViewById<TextView>(R.id.text_view_error_login).text =
                             datas["message"].toString()
+                        progressBar.visibility = View.GONE
                     }
                 }
 
@@ -76,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                         premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
 
                     findViewById<TextView>(R.id.text_view_error_login).text = moyennePremierTrim*/
+
+                    runOnUiThread { progressBar.visibility = View.GONE }
 
                     val intent = Intent(this@MainActivity, Accueil::class.java)
                     intent.putExtra("prenom", prenom.toString())
