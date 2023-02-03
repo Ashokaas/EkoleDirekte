@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:gravity="center|top"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
-
 
 
     <ImageButton
@@ -18,7 +16,8 @@
         android:layout_gravity="left"
         android:layout_margin="16dp"
         android:background="@null"
-        android:src="@drawable/baseline_exit_to_app_24" />
+        android:src="@drawable/baseline_exit_to_app_24"
+        android:contentDescription="Quitter" />
 
     <TextView
         android:layout_width="match_parent"
@@ -33,8 +32,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:layout_gravity="center"
+        android:layout_margin="15dp"
         android:fontFamily="@font/poppins_light"
         android:text="Ce projet n'a absolument rien à voir avec un certain 'Ecole Directe'"
         android:textAlignment="center"
@@ -50,60 +49,63 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:fontFamily="@font/poppins_bold"
         android:layout_gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/main_title"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:text="@string/main_title" />
+        android:textSize="32sp" />
 
     <EditText
         android:id="@+id/user_id"
+        style="@style/EditTextBottomBorder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:hint="@string/identifiant_text"
         android:drawableStart="@drawable/baseline_perm_identity_24"
         android:drawablePadding="12dp"
-        style="@style/EditTextBottomBorder"
+        android:hint="@string/identifiant_text"
         android:padding="16dp"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:autofillHints="username"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/user_mdp"
+        style="@style/EditTextBottomBorder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:inputType="textPassword"
         android:drawableStart="@drawable/baseline_lock_open_24"
         android:drawablePadding="12dp"
-        style="@style/EditTextBottomBorder"
         android:hint="@string/mdp_text"
+        android:inputType="textPassword"
         android:padding="16dp"
         android:textColor="#000"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:autofillHints="password" />
 
     <Button
         android:id="@+id/login_button"
         style="@style/ButtonLogin"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:layout_margin="13dp"
         android:fontFamily="@font/poppins_bold"
+        android:text="@string/connect_button_title"
         android:textAlignment="center"
-        android:text="@string/connect_button_title" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/text_view_error_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:fontFamily="@font/poppins_bold"
         android:layout_gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:text=""
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:text="" />
+        android:textSize="12sp" />
 
-  </LinearLayout>
+</LinearLayout>
