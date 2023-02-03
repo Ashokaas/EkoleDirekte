@@ -44,6 +44,7 @@ class AccountData {
                     val id = firstAccount.getInt("id")
                     return@async mapOf(
                         "data" to data,
+                        "code" to 200,
                         "token" to token,
                         "accounts" to accounts,
                         "firstAccount" to firstAccount,
@@ -56,6 +57,7 @@ class AccountData {
                 } else {
                     return@async mapOf(
                         "data" to "",
+                        "code" to 505,
                         "token" to "",
                         "accounts" to "",
                         "firstAccount" to "",
@@ -68,7 +70,7 @@ class AccountData {
                 }
             }.await()
         }
-        suspend fun getNotes(token: String, id: Int): Map<String, Any?> {
+        suspend fun getNotes(token: String, id: String): Map<String, Any?> {
             val notesStr = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
                 val payload = "data={\"token\":\"$token\"}"
