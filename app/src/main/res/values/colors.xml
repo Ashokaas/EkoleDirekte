@@ -3,10 +3,16 @@
 
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="green_primary">#00e0c0</color>
     <color name="green_secondary">#039c86</color>
     <color name="green_third">#02695a</color>
+
+
+
+
+
 </resources>
