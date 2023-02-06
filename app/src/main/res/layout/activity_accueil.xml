@@ -34,5 +34,31 @@
         android:layout_centerHorizontal="true"
         android:padding="16dp"/>
 
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/test_text"
+        android:layout_marginTop="15dp">
+
+        <TableLayout
+            android:id="@+id/notes_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/loading_row"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/loading_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chargement, veuillez patienter" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
 </RelativeLayout>
 

@@ -115,7 +115,7 @@ class AccountData {
 
                 return mapOf(
                     "notesJson" to notesJson,
-                    "notes" to notes.toString(),
+                    "notes" to notes,
                     "premierTrim" to premierTrim,
                     "deuxiemeTrim" to deuxiemeTrim,
                     "troisiemeTrim" to troisiemeTrim,
