@@ -1,4 +1,4 @@
-package fr.ashokas.ekoledirekte
+package fr.ashokas.ekoledirekte.api
 
 import kotlinx.coroutines.*
 import okhttp3.MediaType

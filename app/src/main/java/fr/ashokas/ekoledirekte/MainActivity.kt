@@ -2,23 +2,18 @@ package fr.ashokas.ekoledirekte
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import fr.ashokas.ekoledirekte.AccountData
+import fr.ashokas.ekoledirekte.api.AccountData
 
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import fr.ashokas.ekoledirekte.views.Accueil
 import kotlinx.coroutines.*
 import okhttp3.*
-
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 

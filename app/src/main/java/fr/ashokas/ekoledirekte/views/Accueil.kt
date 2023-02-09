@@ -1,4 +1,4 @@
-package fr.ashokas.ekoledirekte
+package fr.ashokas.ekoledirekte.views
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
-import com.google.android.material.tabs.TabLayout.Tab
+import fr.ashokas.ekoledirekte.R
+import fr.ashokas.ekoledirekte.api.AccountData
 import org.json.JSONArray
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
