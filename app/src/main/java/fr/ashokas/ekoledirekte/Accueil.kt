@@ -9,6 +9,8 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.tabs.TabLayout.Tab
 import org.json.JSONArray
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +29,8 @@ class Accueil : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accueil)
 
@@ -60,6 +64,21 @@ class Accueil : AppCompatActivity() {
             }
 
         }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.page_1 -> {
+                    println("page 1")
+                }
+
+                R.id.page_2 -> {
+                    println("page 2")
+                }
+            }
+            true
+        }
+
 
     }
 }
