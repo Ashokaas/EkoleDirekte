@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="-40dp"
-        android:src="@drawable/ed_logo_png" />
+        android:src="@drawable/img_edlogo_green" />
 
     <TextView
         android:layout_width="match_parent"
@@ -82,7 +82,7 @@
         android:hint="@string/identifiant_text"
         android:inputType="textNoSuggestions|textVisiblePassword"
 
-        android:drawableStart="@drawable/baseline_perm_identity_24"
+        android:drawableStart="@drawable/icons_login_userface"
         android:drawablePadding="12dp"
         style="@style/EditTextBottomBorder"
         android:padding="16dp"
@@ -96,7 +96,7 @@
         android:layout_gravity="center"
         android:layout_margin="7dp"
         android:inputType="textPassword"
-        android:drawableStart="@drawable/baseline_lock_open_24"
+        android:drawableStart="@drawable/icons_login_lockopen"
         android:drawablePadding="12dp"
         style="@style/EditTextBottomBorder"
         android:hint="@string/mdp_text"

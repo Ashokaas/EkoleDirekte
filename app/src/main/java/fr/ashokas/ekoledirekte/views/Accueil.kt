@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.ashokas.ekoledirekte.R
 import fr.ashokas.ekoledirekte.api.AccountData
@@ -17,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import org.w3c.dom.Text
 
 class Accueil : AppCompatActivity() {
 
@@ -39,8 +39,25 @@ class Accueil : AppCompatActivity() {
         val moy = intent.getStringExtra("moyenne_premier_trim")
         val token = intent.getStringExtra("token")
         val id = intent.getStringExtra("id")
+        val photo_url = intent.getStringExtra("photo_url")
+
+        val username = findViewById<TextView>(R.id.username)
+        username.text = "Bienvenue $prenom $nom".replace("c", "k")
+
+
+        val user_pdp = findViewById<ImageView>(R.id.user_pdp)
+
+        Glide.with(this)
+            .load(photo_url)
+            .into(user_pdp)
+
+
+
 
         CoroutineScope(Dispatchers.IO).launch {
+
+
+
             val notes = AccountData.getNotes(
                 token = token.toString(),
                 id = id.toString()

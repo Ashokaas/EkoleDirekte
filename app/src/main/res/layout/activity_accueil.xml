@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_view"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenue Noubz"
@@ -18,10 +18,9 @@
         android:padding="16dp"/>
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/user_pdp"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/baseline_person_pin_24"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"/>
@@ -30,8 +29,8 @@
         android:id="@+id/test_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Texte en dessous"
-        android:layout_below="@id/image_view"
+        android:text="Notes"
+        android:layout_below="@id/user_pdp"
         android:layout_centerHorizontal="true"
         android:padding="16dp"/>
 

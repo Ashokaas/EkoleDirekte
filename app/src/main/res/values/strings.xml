@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ekole Direkte</string>
     <string name="main_title">Ekole Direkte</string>
-    <string name="connect_button_title">Se connecter</string>
+    <string name="connect_button_title">Se konnecter</string>
 
     <string name="identifiant_text">Identifiant</string>
     <string name="mdp_text">Mot de passe</string>

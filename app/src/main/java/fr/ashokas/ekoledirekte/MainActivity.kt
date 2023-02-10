@@ -6,6 +6,7 @@ import fr.ashokas.ekoledirekte.api.AccountData
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
@@ -26,30 +27,19 @@ class MainActivity : AppCompatActivity() {
 
 
         val buttonLogin = findViewById<Button>(R.id.login_button)
+
         val inputIdentifiant = findViewById<EditText>(R.id.user_id)
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
 
         val progressBar = findViewById<RelativeLayout>(R.id.progressBar)
 
 
-        /*val exitButton = findViewById<ImageButton>(R.id.cross_button)
-
-        exitButton.setOnClickListener {
-            finish()
-        }*/
 
         buttonLogin.setOnClickListener {
             runOnUiThread { progressBar.visibility = View.VISIBLE }
 
-
             val identifiantValue = inputIdentifiant.text.toString()
             val passwordValue = inputPassword.text.toString()
-            var shownPassword = "*"
-            for (i in 1 until passwordValue.length) {
-                shownPassword += "*"
-            }
-            println("Identifiant $identifiantValue")
-            println("Mot de passe : $shownPassword")
 
             CoroutineScope(Dispatchers.IO).launch {
 
@@ -58,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     password = passwordValue
                 )
 
-                // Identifiant et/ou mdp incorrect
+                // Identifiant et/ou mdp incorrect(s)
                 if (datas["code"] == 505) {
                     runOnUiThread {
                         findViewById<TextView>(R.id.text_view_error_login).text =
@@ -75,14 +65,9 @@ class MainActivity : AppCompatActivity() {
                     val token: String = datas["token"] as String
                     val id: Int = datas["id"] as Int
                     val message = datas["message"]
+                    val photo_url = datas.get("photo")
+                    println(photo_url)
 
-                    /*val notes = AccountData.getNotes(token = token, id = id.toString())
-                    // La variable ci-dessous n'a pour seul objectif de tester la fonction getNotes()
-                    val premierTrim = notes.get("premierTrim") as JSONObject
-                    val moyennePremierTrim =
-                        premierTrim.getJSONObject("ensembleMatieres").getString("moyenneGenerale")
-
-                    findViewById<TextView>(R.id.text_view_error_login).text = moyennePremierTrim*/
 
                     runOnUiThread { progressBar.visibility = View.GONE }
 
@@ -93,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("token", token.toString())
                     intent.putExtra("id", id.toString())
                     intent.putExtra("message", message.toString())
+                    intent.putExtra("photo_url", photo_url.toString())
                     startActivity(intent)
 
 

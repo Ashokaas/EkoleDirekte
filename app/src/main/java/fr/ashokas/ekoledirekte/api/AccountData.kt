@@ -38,6 +38,7 @@ class AccountData {
                     val accounts = data.getJSONArray("accounts")
                     val token = accountJson.getString("token")
                     val firstAccount = accounts.getJSONObject(0)
+                    val photo = firstAccount.getJSONObject("profile").getString("photo")
                     val prenom: String = firstAccount.getString("prenom")
                     val nom: String = firstAccount.getString("nom")
                     val email: String = firstAccount.getString("email")
@@ -48,6 +49,7 @@ class AccountData {
                         "token" to token,
                         "accounts" to accounts,
                         "firstAccount" to firstAccount,
+                        "photo" to photo,
                         "prenom" to prenom,
                         "nom" to nom,
                         "email" to email,

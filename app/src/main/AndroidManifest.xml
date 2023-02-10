@@ -7,17 +7,19 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ekole_direkte_logo"
+        android:icon="@drawable/img_edlogo_full"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.EkoleDirekte"
         tools:targetApi="31">
         <activity
             android:name=".views.Accueil"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
