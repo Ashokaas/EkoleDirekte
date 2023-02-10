@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/loading_progress_bar"
-            android:text="Connexion"
+            android:text="Konnektion"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/poppins_medium"
-        android:text="Bienvenue sur l'application Ekole Direkte !"
+        android:text="Bienvenue sur l'applikation Ekole Direkte !"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -52,7 +52,7 @@
         android:layout_margin="15dp"
         android:layout_gravity="center"
         android:fontFamily="@font/poppins_light"
-        android:text="Ce projet n'a absolument rien à voir avec un certain 'Ecole Directe'"
+        android:text="Ke projet n'a absolument rien à voir avek un kertain 'Ecole Directe'"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp" />
@@ -97,6 +97,7 @@
         android:layout_margin="7dp"
         android:inputType="textPassword"
         android:drawableStart="@drawable/icons_login_lockopen"
+        android:drawableEnd="@drawable/icons_login_showpassword"
         android:drawablePadding="12dp"
         style="@style/EditTextBottomBorder"
         android:hint="@string/mdp_text"

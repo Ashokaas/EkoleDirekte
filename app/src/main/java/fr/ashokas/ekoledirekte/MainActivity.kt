@@ -5,6 +5,8 @@ import android.content.Intent
 import fr.ashokas.ekoledirekte.api.AccountData
 
 import android.os.Bundle
+import android.text.InputType
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -32,6 +34,28 @@ class MainActivity : AppCompatActivity() {
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
 
         val progressBar = findViewById<RelativeLayout>(R.id.progressBar)
+
+        var is_password_visile = false
+
+        val editText = findViewById<EditText>(R.id.user_mdp)
+        editText.setOnTouchListener { view, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                    // Gestion du clique sur le drawableEnd de l'EditText inputPassword (l'oeil)
+                    if (is_password_visile == true) {
+                        inputPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    } else {
+                        inputPassword.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                    println(is_password_visile)
+                    is_password_visile = !is_password_visile
+                    inputPassword.setSelection(inputPassword.text.length)
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+        }
+
 
 
 

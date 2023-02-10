@@ -1,5 +1,7 @@
 package fr.ashokas.ekoledirekte.views
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -45,11 +47,18 @@ class Accueil : AppCompatActivity() {
         username.text = "Bienvenue $prenom $nom".replace("c", "k")
 
 
+        println(photo_url)
         val user_pdp = findViewById<ImageView>(R.id.user_pdp)
 
         Glide.with(this)
-            .load(photo_url)
+            .load("https://play-lh.googleusercontent.com/8ddL1kuoNUB5vUvgDVjYY3_6HwQcrg1K2fd_R8soD-e2QYj8fT9cfhfh3G0hnSruLKec")
             .into(user_pdp)
+
+
+        user_pdp.setBackground(
+            ShapeDrawable(OvalShape())
+        )
+        user_pdp.clipToOutline = true
 
 
 
