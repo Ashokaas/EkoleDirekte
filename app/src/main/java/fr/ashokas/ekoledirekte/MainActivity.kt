@@ -2,6 +2,8 @@ package fr.ashokas.ekoledirekte
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import fr.ashokas.ekoledirekte.api.AccountData
 
 import android.os.Bundle
@@ -26,6 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.statusBarColor = this.resources.getColor(R.color.white)
+        }
 
 
         val buttonLogin = findViewById<Button>(R.id.login_button)

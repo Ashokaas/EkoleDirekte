@@ -20,6 +20,10 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.w3c.dom.Text
 
+import android.graphics.Color
+import android.view.WindowManager
+
+
 class Accueil : AppCompatActivity() {
 
     private fun addRow(view: View, tableLayout: TableLayout) {
@@ -35,6 +39,16 @@ class Accueil : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accueil)
+
+        // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = this.window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.statusBarColor = this.resources.getColor(R.color.green_secondary)
+        }
+
+
 
         val prenom = intent.getStringExtra("prenom")
         val nom = intent.getStringExtra("nom")
@@ -63,33 +77,7 @@ class Accueil : AppCompatActivity() {
 
 
 
-        CoroutineScope(Dispatchers.IO).launch {
 
-
-
-            val notes = AccountData.getNotes(
-                token = token.toString(),
-                id = id.toString()
-            )
-
-            runOnUiThread {
-                // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
-                val tableau = findViewById<TableLayout>(R.id.notes_table)
-                findViewById<TableRow>(R.id.loading_row).visibility = View.GONE
-
-                val notesJArray = notes["notes"] as JSONArray
-                for (i in 0 until notesJArray.length()) {
-                    Log.d("hehe", notesJArray.get(i)::class.java.typeName)
-
-                    val note: JSONObject = notesJArray.get(i) as JSONObject
-                    val textView: TextView = TextView(this@Accueil)
-                    val text = note.getString("codePeriode") + " | " + note.getString("libelleMatiere") + " | " + note.getString("devoir") + "\nNote: " + note.getString("valeur") + "/" + note.getString("noteSur")
-                    textView.text = text
-                    addRow(textView, tableau)
-                }
-            }
-
-        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -99,7 +87,33 @@ class Accueil : AppCompatActivity() {
                 }
 
                 R.id.page_2 -> {
-                    println("page 2")
+                    CoroutineScope(Dispatchers.IO).launch {
+
+
+
+                        val notes = AccountData.getNotes(
+                            token = token.toString(),
+                            id = id.toString()
+                        )
+
+                        runOnUiThread {
+                            // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
+                            val tableau = findViewById<TableLayout>(R.id.notes_table)
+                            findViewById<TableRow>(R.id.loading_row).visibility = View.GONE
+
+                            val notesJArray = notes["notes"] as JSONArray
+                            for (i in 0 until notesJArray.length()) {
+                                Log.d("hehe", notesJArray.get(i)::class.java.typeName)
+
+                                val note: JSONObject = notesJArray.get(i) as JSONObject
+                                val textView: TextView = TextView(this@Accueil)
+                                val text = note.getString("codePeriode") + " | " + note.getString("libelleMatiere") + " | " + note.getString("devoir") + "\nNote: " + note.getString("valeur") + "/" + note.getString("noteSur")
+                                textView.text = text
+                                addRow(textView, tableau)
+                            }
+                        }
+
+                    }
                 }
             }
             true
