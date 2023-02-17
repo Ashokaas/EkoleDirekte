@@ -31,20 +31,49 @@
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_below="@+id/header_accueil">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Anglais"
+            android:background="#DEDEDE"
+            android:fontFamily="@font/poppins_light"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:paddingLeft="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="EO Reportage 20/20"
+            android:background="#F9F9F9"
+            android:fontFamily="@font/poppins_light"
+            android:textSize="12sp"
+            android:paddingVertical="6dp"
+            android:paddingLeft="16dp"/>
+        </LinearLayout>
+    </ScrollView>
 
 
 
-
-    <TextView
+    <!--<TextView
         android:id="@+id/test_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notes"
         android:layout_below="@id/header_accueil"
         android:layout_centerHorizontal="true"
-        android:padding="16dp"/>
+        android:padding="16dp"/>-->
 
-    <ScrollView
+    <!--<ScrollView
         android:id="@+id/scroll_view_notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,7 +97,7 @@
                     android:text="Khargement, veuillez patienter" />
             </TableRow>
         </TableLayout>
-    </ScrollView>
+    </ScrollView>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

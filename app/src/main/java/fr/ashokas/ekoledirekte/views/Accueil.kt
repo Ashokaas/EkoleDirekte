@@ -1,5 +1,6 @@
 package fr.ashokas.ekoledirekte.views
 
+import android.content.Context
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
@@ -19,8 +20,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.w3c.dom.Text
+import kotlin.text.takeLast
+
 
 import android.graphics.Color
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.WindowManager
 
 
@@ -98,19 +103,51 @@ class Accueil : AppCompatActivity() {
 
                         runOnUiThread {
                             // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
+                            /*
                             val tableau = findViewById<TableLayout>(R.id.notes_table)
-                            findViewById<TableRow>(R.id.loading_row).visibility = View.GONE
+                            findViewById<TableRow>(R.id.loading_row).visibility = View.GONE*/
 
                             val notesJArray = notes["notes"] as JSONArray
+
+                            val grades = listOf(
+                                mutableMapOf<String, MutableList<List<String>>>(),
+                                mutableMapOf<String, MutableList<List<String>>>(),
+                                mutableMapOf<String, MutableList<List<String>>>()
+                            )
+
+
                             for (i in 0 until notesJArray.length()) {
-                                Log.d("hehe", notesJArray.get(i)::class.java.typeName)
+                                val note: JSONObject = notesJArray.get(i) as JSONObject
+
+                                val trimestreNote = note["codePeriode"].toString().get(3).digitToInt() - 1
+
+                                println(trimestreNote)
+
+                                val matiereNote = note["libelleMatiere"]
+                                val devoirNote = note["devoir"]
+                                val valeurNote = note["valeur"]
+                                val surcmbNote = note["noteSur"]
+                                if (matiereNote !in grades[trimestreNote]) {
+                                    grades[trimestreNote][matiereNote as String] = mutableListOf()
+                                }
+
+                                grades[trimestreNote][matiereNote]!!.add(listOf(devoirNote, valeurNote, surcmbNote) as List<String>)
+                            }
+
+                            println(grades)
+
+
+
+
+                            /*
+                            for (i in 0 until notesJArray.length()) {
 
                                 val note: JSONObject = notesJArray.get(i) as JSONObject
                                 val textView: TextView = TextView(this@Accueil)
                                 val text = note.getString("codePeriode") + " | " + note.getString("libelleMatiere") + " | " + note.getString("devoir") + "\nNote: " + note.getString("valeur") + "/" + note.getString("noteSur")
                                 textView.text = text
                                 addRow(textView, tableau)
-                            }
+                            }*/
                         }
 
                     }
@@ -122,3 +159,5 @@ class Accueil : AppCompatActivity() {
 
     }
 }
+
+
