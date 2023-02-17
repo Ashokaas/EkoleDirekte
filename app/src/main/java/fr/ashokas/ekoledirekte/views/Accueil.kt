@@ -24,9 +24,12 @@ import kotlin.text.takeLast
 
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 
 
 class Accueil : AppCompatActivity() {
@@ -92,65 +95,87 @@ class Accueil : AppCompatActivity() {
                 }
 
                 R.id.page_2 -> {
+
                     CoroutineScope(Dispatchers.IO).launch {
-
-
 
                         val notes = AccountData.getNotes(
                             token = token.toString(),
                             id = id.toString()
                         )
 
-                        runOnUiThread {
-                            // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
-                            /*
-                            val tableau = findViewById<TableLayout>(R.id.notes_table)
-                            findViewById<TableRow>(R.id.loading_row).visibility = View.GONE*/
+                        // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
+                        /*
+                        val tableau = findViewById<TableLayout>(R.id.notes_table)
+                        findViewById<TableRow>(R.id.loading_row).visibility = View.GONE*/
 
-                            val notesJArray = notes["notes"] as JSONArray
+                        val notesJArray = notes["notes"] as JSONArray
 
-                            val grades = listOf(
-                                mutableMapOf<String, MutableList<List<String>>>(),
-                                mutableMapOf<String, MutableList<List<String>>>(),
-                                mutableMapOf<String, MutableList<List<String>>>()
-                            )
+                        val grades = listOf(
+                            mutableMapOf<String, MutableList<List<String>>>(),
+                            mutableMapOf<String, MutableList<List<String>>>(),
+                            mutableMapOf<String, MutableList<List<String>>>()
+                        )
 
 
-                            for (i in 0 until notesJArray.length()) {
-                                val note: JSONObject = notesJArray.get(i) as JSONObject
+                        for (i in 0 until notesJArray.length()) {
+                            val note: JSONObject = notesJArray.get(i) as JSONObject
 
-                                val trimestreNote = note["codePeriode"].toString().get(3).digitToInt() - 1
+                            val trimestreNote = note["codePeriode"].toString().get(3).digitToInt() - 1
 
-                                println(trimestreNote)
+                            println(trimestreNote)
 
-                                val matiereNote = note["libelleMatiere"]
-                                val devoirNote = note["devoir"]
-                                val valeurNote = note["valeur"]
-                                val surcmbNote = note["noteSur"]
-                                if (matiereNote !in grades[trimestreNote]) {
-                                    grades[trimestreNote][matiereNote as String] = mutableListOf()
-                                }
-
-                                grades[trimestreNote][matiereNote]!!.add(listOf(devoirNote, valeurNote, surcmbNote) as List<String>)
+                            val matiereNote = note["libelleMatiere"]
+                            val devoirNote = note["devoir"]
+                            val valeurNote = note["valeur"]
+                            val surcmbNote = note["noteSur"]
+                            if (matiereNote !in grades[trimestreNote]) {
+                                grades[trimestreNote][matiereNote as String] = mutableListOf()
                             }
 
-                            println(grades)
-
-
-
-
-                            /*
-                            for (i in 0 until notesJArray.length()) {
-
-                                val note: JSONObject = notesJArray.get(i) as JSONObject
-                                val textView: TextView = TextView(this@Accueil)
-                                val text = note.getString("codePeriode") + " | " + note.getString("libelleMatiere") + " | " + note.getString("devoir") + "\nNote: " + note.getString("valeur") + "/" + note.getString("noteSur")
-                                textView.text = text
-                                addRow(textView, tableau)
-                            }*/
+                            grades[trimestreNote][matiereNote]!!.add(listOf(devoirNote, valeurNote, surcmbNote) as List<String>)
                         }
 
+                        println(grades)
+
+
+
+
                     }
+
+                    val matiere = TextView(this)
+                    matiere.textSize = 18f
+                    matiere.text = "Anglais"
+                    matiere.typeface = ResourcesCompat.getFont(this, R.font.poppins_light)
+                    matiere.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    matiere.setPadding(16, 8, 0, 8)
+
+                    matiere.setTextColor(ContextCompat.getColor(this, R.color.black)) // définir la couleur du texte
+                    matiere.setBackgroundColor(ContextCompat.getColor(this, R.color.grey)) // définir la couleur de fond
+
+
+
+                    val note = TextView(this)
+                    note.textSize = 12f
+                    note.text = "EO Reportage 20/20"
+                    note.typeface = ResourcesCompat.getFont(this, R.font.poppins_light)
+                    note.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    note.setPadding(16, 8, 0, 8)
+
+                    note.setTextColor(ContextCompat.getColor(this, R.color.black)) // définir la couleur du texte
+                    note.setBackgroundColor(ContextCompat.getColor(this, R.color.light_grey)) // définir la couleur de fond
+
+
+
+                    val parentView = findViewById<LinearLayout>(R.id.layout_notes)
+                    parentView.addView(matiere)
+                    parentView.addView(note)
+
                 }
             }
             true
@@ -158,6 +183,8 @@ class Accueil : AppCompatActivity() {
 
 
     }
+
+
 }
 
 
