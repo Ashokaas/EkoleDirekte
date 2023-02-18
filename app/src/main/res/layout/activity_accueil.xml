@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,13 +29,17 @@
             android:id="@+id/user_pdp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:contentDescription="TODO" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        android:layout_below="@+id/header_accueil">
+        android:layout_below="@+id/header_accueil"
+        android:visibility="gone"
+        tools:visibility="gone">
+
         <LinearLayout
             android:id="@+id/layout_notes"
             android:layout_width="match_parent"
@@ -44,25 +49,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Anglais"
                 android:background="#DEDEDE"
                 android:fontFamily="@font/poppins_light"
-                android:textSize="18sp"
+                android:hint="Anglais"
                 android:paddingVertical="8dp"
-                android:paddingLeft="16dp"/>
+                android:paddingLeft="16dp"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="EO Reportage 20/20"
                 android:background="#F9F9F9"
                 android:fontFamily="@font/poppins_light"
-                android:textSize="12sp"
+                android:hint="EO Reportage 20/20"
                 android:paddingVertical="6dp"
-                android:paddingLeft="16dp"/>
+                android:paddingLeft="16dp"
+                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
-
 
 
     <!--<TextView
@@ -99,6 +103,16 @@
             </TableRow>
         </TableLayout>
     </ScrollView>-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_below="@id/header_accueil"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/bottom_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

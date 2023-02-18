@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/accueilFragment">
+
     <item
-        android:id="@+id/page_1"
+        android:id="@+id/accueilFragment"
         android:enabled="true"
         android:icon="@drawable/icons_navbar_home"
         android:title="Accueil"/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/notesFragment"
         android:enabled="true"
         android:icon="@drawable/icons_navbar_grades"
         android:title="Notes"/>

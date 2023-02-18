@@ -30,6 +30,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 
 
 class Accueil : AppCompatActivity() {
@@ -49,13 +54,16 @@ class Accueil : AppCompatActivity() {
         setContentView(R.layout.activity_accueil)
 
         // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
-        if (Build.VERSION.SDK_INT >= 21) {
-            val window = this.window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.statusBarColor = this.resources.getColor(R.color.green_secondary)
-        }
+        val window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.statusBarColor = this.resources.getColor(R.color.green_secondary)
 
+        val navigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
+
+        val navController: NavController = navHostFragment.navController
+        NavigationUI.setupWithNavController(navigationView, navController)
 
 
         val prenom = intent.getStringExtra("prenom")
@@ -87,7 +95,7 @@ class Accueil : AppCompatActivity() {
 
 
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        /*val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.page_1 -> {
@@ -104,9 +112,9 @@ class Accueil : AppCompatActivity() {
                         )
 
                         // findViewById<TextView>(R.id.test_text).text = notes.get("deuxiemeTrim").toString()
-                        /*
+                        *//*
                         val tableau = findViewById<TableLayout>(R.id.notes_table)
-                        findViewById<TableRow>(R.id.loading_row).visibility = View.GONE*/
+                        findViewById<TableRow>(R.id.loading_row).visibility = View.GONE*//*
 
                         val notesJArray = notes["notes"] as JSONArray
 
@@ -179,7 +187,7 @@ class Accueil : AppCompatActivity() {
                 }
             }
             true
-        }
+        }*/
 
 
     }

@@ -34,27 +34,26 @@
     </RelativeLayout>
 
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/poppins_medium"
+        android:padding="10dp"
         android:text="Bienvenue sur l'applikation Ekole Direkte !"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:padding="10dp"/>
+        android:textColor="?android:textColorPrimary"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:layout_gravity="center"
+        android:layout_margin="15dp"
         android:fontFamily="@font/poppins_light"
         android:text="Ke projet n'a absolument rien à voir avek un kertain 'Ecole Directe'"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="15sp" />
 
     <ImageView
@@ -66,41 +65,41 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:fontFamily="@font/poppins_bold"
         android:layout_gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/main_title"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:text="@string/main_title" />
+        android:textColor="?android:textColorPrimary"
+        android:textSize="28sp" />
 
     <EditText
         android:id="@+id/user_id"
+        style="@style/EditTextBottomBorder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="7dp"
+        android:drawableStart="@drawable/icons_login_userface"
+
+        android:drawablePadding="12dp"
         android:hint="@string/identifiant_text"
         android:inputType="textNoSuggestions|textVisiblePassword"
-
-        android:drawableStart="@drawable/icons_login_userface"
-        android:drawablePadding="12dp"
-        style="@style/EditTextBottomBorder"
         android:padding="16dp"
         android:textColor="#000"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/user_mdp"
+        style="@style/EditTextBottomBorder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="7dp"
-        android:inputType="textPassword"
         android:drawableStart="@drawable/icons_login_lockopen"
         android:drawableEnd="@drawable/icons_login_showpassword"
         android:drawablePadding="12dp"
-        style="@style/EditTextBottomBorder"
         android:hint="@string/mdp_text"
+        android:inputType="textPassword"
         android:padding="16dp"
         android:textColor="#000"
         android:textSize="18sp" />
