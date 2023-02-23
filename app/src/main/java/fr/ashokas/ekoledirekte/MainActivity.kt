@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
-        if (Build.VERSION.SDK_INT >= 21) {
+        /*if (Build.VERSION.SDK_INT >= 21) {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.statusBarColor = this.resources.getColor(R.color.white)
-        }
+        }*/
 
 
         val buttonLogin = findViewById<Button>(R.id.login_button)
@@ -93,14 +93,14 @@ class MainActivity : AppCompatActivity() {
 
                 // Utilisateur connecté
                 if (datas["code"] == 200) {
-                    val prenom = datas.get("prenom")
-                    val nom = datas.get("nom")
-                    val email = datas.get("email")
+                    val prenom = datas["prenom"]
+                    val nom = datas["nom"]
+                    val email = datas["email"]
                     val token: String = datas["token"] as String
                     val id: Int = datas["id"] as Int
                     val message = datas["message"]
-                    val photo_url = datas.get("photo")
-                    println(photo_url)
+                    val photoURL = datas["photo"]
+                    println(photoURL)
 
 
                     runOnUiThread { progressBar.visibility = View.GONE }
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("token", token.toString())
                     intent.putExtra("id", id.toString())
                     intent.putExtra("message", message.toString())
-                    intent.putExtra("photo_url", photo_url.toString())
+                    intent.putExtra("photoURL", photoURL.toString())
                     startActivity(intent)
 
 

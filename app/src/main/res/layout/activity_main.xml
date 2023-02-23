@@ -51,7 +51,7 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:fontFamily="@font/poppins_light"
-        android:text="Ke projet n'a absolument rien à voir avek un kertain 'Ecole Directe'"
+        android:text="@string/welcome_text"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textSize="15sp" />

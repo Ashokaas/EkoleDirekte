@@ -18,7 +18,7 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenue Utilisateur"
+            android:text="@string/shown_username"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -39,33 +39,38 @@
         android:layout_below="@+id/header_accueil"
         android:visibility="gone"
         tools:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/layout_notes"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#DEDEDE"
-                android:fontFamily="@font/poppins_light"
-                android:hint="Anglais"
-                android:paddingVertical="8dp"
-                android:paddingLeft="16dp"
-                android:textSize="18sp" />
+        <!--
+                <LinearLayout
+                    android:id="@+id/layout_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F9F9F9"
-                android:fontFamily="@font/poppins_light"
-                android:hint="EO Reportage 20/20"
-                android:paddingVertical="6dp"
-                android:paddingLeft="16dp"
-                android:textSize="12sp" />
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#DEDEDE"
+                        android:fontFamily="@font/poppins_light"
+                        android:hint="Anglais"
+                        android:paddingVertical="8dp"
+                        android:paddingLeft="16dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F9F9F9"
+                        android:fontFamily="@font/poppins_light"
+                        android:hint="EO Reportage 20/20"
+                        android:paddingVertical="6dp"
+                        android:paddingLeft="16dp"
+                        android:textSize="12sp" />
+                </LinearLayout>-->
     </ScrollView>
 
 

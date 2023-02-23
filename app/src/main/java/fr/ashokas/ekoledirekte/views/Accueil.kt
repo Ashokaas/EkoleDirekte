@@ -53,42 +53,66 @@ class Accueil : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accueil)
 
+
+        // Récupération des données
+        val prenom = intent.getStringExtra("prenom")
+        val nom = intent.getStringExtra("nom")
+        val moy = intent.getStringExtra("moyenne_premier_trim")
+        val token = intent.getStringExtra("token")
+        val id = intent.getStringExtra("id")
+        var photo_url = intent.getStringExtra("photo_url")
+
+
         // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
-        val window = this.window
+        /*val window = this.window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = this.resources.getColor(R.color.green_secondary)
+        window.statusBarColor = this.resources.getColor(R.color.green_secondary)*/
 
+
+        // Navbar
         val navigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
 
         val navController: NavController = navHostFragment.navController
         NavigationUI.setupWithNavController(navigationView, navController)
 
+        // Ajouter les données à transmettre dans un Bundle
+        val bundle = Bundle()
+        bundle.putString("prenom", prenom)
+        bundle.putString("nom", nom)
+        bundle.putString("moy", moy)
+        bundle.putString("token", token)
+        bundle.putString("id", id)
+        bundle.putString("photo_url", photo_url)
 
-        val prenom = intent.getStringExtra("prenom")
-        val nom = intent.getStringExtra("nom")
-        val moy = intent.getStringExtra("moyenne_premier_trim")
-        val token = intent.getStringExtra("token")
-        val id = intent.getStringExtra("id")
-        val photo_url = intent.getStringExtra("photo_url")
+        // Créer une instance du fragment NotesFragment et lui transmettre le Bundle
+        val notesFragment = NotesFragment()
+        notesFragment.arguments = bundle
 
+
+
+        // Affichage du nom et du prénom
         val username = findViewById<TextView>(R.id.username)
-        username.text = "Bienvenue $prenom $nom".replace("c", "k")
+        username.text = "Bienvenue $prenom $nom"
 
+
+        // Afficher la PDP de l'utilisateur
+        /*
+        photo_url = photo_url?.substring(2, photo_url.length)
+        println(photo_url)
 
         println(photo_url)
         val user_pdp = findViewById<ImageView>(R.id.user_pdp)
 
         Glide.with(this)
-            .load("https://play-lh.googleusercontent.com/8ddL1kuoNUB5vUvgDVjYY3_6HwQcrg1K2fd_R8soD-e2QYj8fT9cfhfh3G0hnSruLKec")
+            .load(photo_url)
             .into(user_pdp)
-
 
         user_pdp.setBackground(
             ShapeDrawable(OvalShape())
         )
-        user_pdp.clipToOutline = true
+        user_pdp.clipToOutline = true*/
 
 
 

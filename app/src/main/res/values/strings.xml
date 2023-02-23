@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">Ekole Direkte</string>
     <string name="main_title">Ekole Direkte</string>
+
+    <!-- Strings related to login -->
     <string name="connect_button_title">Se konnecter</string>
 
     <string name="identifiant_text">Identifiant</string>
     <string name="mdp_text">Mot de passe</string>
-    <!-- Strings related to login -->
+    <string name="welcome_text">Ce projet n\'a absolument rien à voir avek un certain \'Ecole Directe\'</string>
+
+    <string name="shown_username">Bienvenue Utilisateur</string>
+
+
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
