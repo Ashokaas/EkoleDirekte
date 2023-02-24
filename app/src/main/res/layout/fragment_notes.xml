@@ -5,10 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".views.NotesFragment">
 
-    <TextView
-        android:id="@+id/test_view"
-        android:layout_width="wrap_content"
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/large_text" />
+        android:orientation="vertical"
+        android:id="@+id/grades_table">
+
+        <TextView
+            android:id="@+id/test_viewoui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Notes" />
+
+        <TextView
+            android:id="@+id/test_viewnon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Notes" />
+
+    </LinearLayout>
+
+
+
+
 </androidx.core.widget.NestedScrollView>
