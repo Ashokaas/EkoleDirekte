@@ -26,6 +26,7 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val frag = getView()
 
         // Récupérer le Bundle contenant les données transmises
         val bundle = arguments
@@ -38,7 +39,12 @@ class NotesFragment : Fragment() {
         val id = bundle?.getString("id")
         val photo_url = bundle?.getString("photo_url")
 
-        println(prenom)
+        val test = frag?.findViewById<TextView>(R.id.test_view)
+        if (test != null) {
+            test.text = prenom
+        }
+
+        println(moy)
         println(nom)
         println(id)
     }

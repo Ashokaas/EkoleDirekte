@@ -1,40 +1,18 @@
 package fr.ashokas.ekoledirekte.views
 
-import android.content.Context
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.ashokas.ekoledirekte.R
-import fr.ashokas.ekoledirekte.api.AccountData
-import org.json.JSONArray
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.json.JSONObject
-import org.w3c.dom.Text
-import kotlin.text.takeLast
 
 
-import android.graphics.Color
-import android.graphics.Typeface
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.navigation.NavigationView
 
 
 class Accueil : AppCompatActivity() {
@@ -75,7 +53,7 @@ class Accueil : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
 
         val navController: NavController = navHostFragment.navController
-        NavigationUI.setupWithNavController(navigationView, navController)
+        // NavigationUI.setupWithNavController(navigationView, navController)
 
         // Ajouter les données à transmettre dans un Bundle
         val bundle = Bundle()
@@ -95,6 +73,20 @@ class Accueil : AppCompatActivity() {
         // Affichage du nom et du prénom
         val username = findViewById<TextView>(R.id.username)
         username.text = "Bienvenue $prenom $nom"
+
+        // Switch entre fragments avec bundle wooouaw
+        navigationView.setOnItemSelectedListener {item ->
+            when (item.itemId) {
+                R.id.accueilFragment -> {
+                    navController.navigate(R.id.accueilFragment, bundle)
+                }
+
+                R.id.notesFragment -> {
+                    navController.navigate(R.id.notesFragment, bundle)
+                }
+            }
+            true
+        }
 
 
         // Afficher la PDP de l'utilisateur
