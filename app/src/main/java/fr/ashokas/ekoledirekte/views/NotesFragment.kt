@@ -13,6 +13,8 @@ import fr.ashokas.ekoledirekte.api.AccountData
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
+
 
 class NotesFragment : Fragment() {
 
@@ -39,33 +41,6 @@ class NotesFragment : Fragment() {
         val token = bundle?.getString("token")
         val id = bundle?.getString("id")
         val photo_url = bundle?.getString("photo_url")
-
-
-        var currentTrimester = 1
-
-        val previousButton = view.findViewById<ImageButton>(R.id.btn_previous)
-        previousButton.setOnClickListener {
-            // Gérer le clic sur le bouton "précédent"
-        }
-
-        val nextButton = view.findViewById<ImageButton>(R.id.btn_next)
-        nextButton.setOnClickListener {
-            // Gérer le clic sur le bouton "suivant"
-        }
-
-
-        val trimesterSpinner = view.findViewById<Spinner>(R.id.trimester_spinner)
-
-// Liste des trimestres disponibles
-        val trimesters = listOf("Trimestre 1", "Trimestre 2", "Trimestre 3")
-
-// Adapter pour le spinner
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, trimesters)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        trimesterSpinner.adapter = adapter
-
-// Sélection du trimestre courant
-        trimesterSpinner.setSelection(currentTrimester - 1) // -1 car les indices commencent à 0
 
 
 
@@ -121,7 +96,80 @@ class NotesFragment : Fragment() {
             println(grades)
 
 
+            var calendar = Calendar.getInstance()
+            val currentMonth = calendar.get(Calendar.MONTH) + 1
 
+            var currentTrim = if (currentMonth in 9..11) {
+                0
+            } else if (currentMonth in 12..2) {
+                1
+            } else {
+                2
+            }
+
+
+
+
+            val previousButton: ImageButton = view.findViewById<ImageButton>(R.id.previous_button)
+            val nextButton: ImageButton = view.findViewById<ImageButton>(R.id.next_button)
+            val titleText = view.findViewById<TextView>(R.id.title_text)
+
+            previousButton.setOnClickListener {
+                // Ajoutez ici la logique pour passer au trimestre précédent
+                // et mettre à jour le titre en conséquence
+
+                val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
+                layoutAVider.removeAllViews()
+
+                currentTrim -= 1
+                if (currentTrim < 0) {
+                    currentTrim = 2
+                }
+                titleText.text = "Trimestre " + (currentTrim + 1).toString()
+
+                for (mat in grades[currentTrim].keys) {
+                    println(grades[currentTrim][mat])
+                    afficher_matiere(view, savedInstanceState, mat)
+                    for (note in grades[currentTrim][mat]!!) {
+                        val noteAffiche = "${note[0]} : ${note[1]}/${note[2]}"
+                        afficher_notes(view, savedInstanceState, noteAffiche)
+
+                    }
+
+                }
+            }
+
+
+
+            nextButton.setOnClickListener {
+                // Ajoutez ici la logique pour passer au trimestre suivant
+                // et mettre à jour le titre en conséquence
+
+                val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
+                layoutAVider.removeAllViews()
+
+                currentTrim += 1
+                if (currentTrim > 2) {
+                    currentTrim = 0
+                }
+                titleText.text = "Trimestre " + (currentTrim + 1).toString()
+                for (mat in grades[currentTrim].keys) {
+                    println(grades[currentTrim][mat])
+                    afficher_matiere(view, savedInstanceState, mat)
+                    for (note in grades[currentTrim][mat]!!) {
+                        val noteAffiche = "${note[0]} : ${note[1]}/${note[2]}"
+                        afficher_notes(view, savedInstanceState, noteAffiche)
+
+                    }
+
+                }
+            }
+
+
+
+
+
+            /*
             for (trim in 0 until 3) {
                 for (mat in grades[trim].keys) {
                     println(grades[trim][mat])
@@ -133,8 +181,13 @@ class NotesFragment : Fragment() {
                     }
 
                 }
-            }
+            }*/
         }
+
+
+
+
+
 
 
     }
