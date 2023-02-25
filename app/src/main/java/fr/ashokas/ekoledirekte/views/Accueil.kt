@@ -1,5 +1,7 @@
 package fr.ashokas.ekoledirekte.views
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +15,7 @@ import fr.ashokas.ekoledirekte.R
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 
 
 class Accueil : AppCompatActivity() {
@@ -91,7 +94,7 @@ class Accueil : AppCompatActivity() {
 
         // Afficher la PDP de l'utilisateur
         /*
-        photo_url = photo_url?.substring(2, photo_url.length)
+        photo_url = photo_url
         println(photo_url)
 
         println(photo_url)
@@ -104,8 +107,8 @@ class Accueil : AppCompatActivity() {
         user_pdp.setBackground(
             ShapeDrawable(OvalShape())
         )
-        user_pdp.clipToOutline = true*/
-
+        user_pdp.clipToOutline = true
+        */
 
 
 
