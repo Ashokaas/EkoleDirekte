@@ -87,7 +87,12 @@ class NotesFragment : Fragment() {
             for (trim in 0 until 3) {
                 for (mat in grades[trim].keys) {
                     println(grades[trim][mat])
-                    afficher_notes(view, savedInstanceState, mat + (grades[trim][mat]).toString())
+                    afficher_matiere(view, savedInstanceState, mat)
+                    for (note in grades[trim][mat]!!) {
+                        val noteAffiche = "${note[0]} : ${note[1]}/${note[2]}"
+                        afficher_notes(view, savedInstanceState, noteAffiche)
+
+                    }
 
                 }
             }
@@ -95,6 +100,13 @@ class NotesFragment : Fragment() {
 
 
     }
+
+
+    private fun pxToDp(px: Int): Int {
+        val density = resources.displayMetrics.density
+        return (px * density).toInt()
+    }
+
 
 
     fun afficher_notes(view: View, savedInstanceState: Bundle?, text: String) {
@@ -107,12 +119,12 @@ class NotesFragment : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            matiere.setPadding(16, 8, 0, 8)
-
+            matiere.setPadding(pxToDp(16), pxToDp(8), pxToDp(0), pxToDp(8))
+            matiere.text
             matiere.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.black
+                    R.color.white
                 )
             ) // définir la couleur du texte
             matiere.setBackgroundColor(
@@ -128,4 +140,35 @@ class NotesFragment : Fragment() {
         }
     }
 
+
+    fun afficher_matiere(view: View, savedInstanceState: Bundle?, text: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val matiere = TextView(requireContext())
+            matiere.textSize = 18f
+            matiere.text = text
+            matiere.typeface = ResourcesCompat.getFont(requireContext(), R.font.poppins_light)
+            matiere.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            matiere.setPadding(pxToDp(8), pxToDp(8), pxToDp(0), pxToDp(8))
+            matiere.text
+            matiere.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            ) // définir la couleur du texte
+            matiere.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey2
+                )
+            ) // définir la couleur de fond
+
+
+            val parentView = view.findViewById<LinearLayout>(R.id.grades_table)
+            parentView.addView(matiere)
+        }
+    }
 }
