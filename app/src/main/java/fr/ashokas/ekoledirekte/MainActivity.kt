@@ -1,20 +1,20 @@
 package fr.ashokas.ekoledirekte
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+
 import fr.ashokas.ekoledirekte.api.AccountData
+
 
 import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import fr.ashokas.ekoledirekte.views.Accueil
 import kotlinx.coroutines.*
@@ -38,10 +38,26 @@ class MainActivity : AppCompatActivity() {
         }*/
 
 
+
+
+
+
         val buttonLogin = findViewById<Button>(R.id.login_button)
 
         val inputIdentifiant = findViewById<EditText>(R.id.user_id)
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
+
+
+
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+
+
+
+        val rememberId = sharedPref.getString("rememberId", "")
+        inputIdentifiant.setText(rememberId)
+        val rememberPassword = sharedPref.getString("rememberPassword", "")
+        inputPassword.setText(rememberPassword)
+
 
         val progressBar = findViewById<RelativeLayout>(R.id.progressBar)
 
@@ -93,6 +109,13 @@ class MainActivity : AppCompatActivity() {
 
                 // Utilisateur connecté
                 if (datas["code"] == 200) {
+                    with (sharedPref.edit()) {
+                        putString("rememberId", inputIdentifiant.text.toString())
+                        putString("rememberPassword", inputPassword.text.toString())
+                        apply()
+                    }
+
+
                     val prenom = datas["prenom"]
                     val nom = datas["nom"]
                     val email = datas["email"]

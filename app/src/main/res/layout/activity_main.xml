@@ -104,6 +104,18 @@
         android:textColor="#000"
         android:textSize="18sp" />
 
+    <Switch
+        android:id="@+id/switch_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:text="Rester connecté"
+        android:textSize="18sp"
+        android:switchPadding="16dp"
+        android:checked="false"/>
+
+
     <Button
         android:id="@+id/login_button"
         style="@style/ButtonLogin"
@@ -115,6 +127,7 @@
         android:fontFamily="@font/poppins_bold"
         android:textAlignment="center"
         android:text="@string/connect_button_title" />
+
 
     <TextView
         android:id="@+id/text_view_error_login"
