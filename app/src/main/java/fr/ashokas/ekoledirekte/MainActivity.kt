@@ -16,6 +16,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import fr.ashokas.ekoledirekte.api.UserViewModel
 import fr.ashokas.ekoledirekte.views.Accueil
 import kotlinx.coroutines.*
 import okhttp3.*
@@ -113,6 +115,11 @@ class MainActivity : AppCompatActivity() {
                         putString("rememberId", inputIdentifiant.text.toString())
                         putString("rememberPassword", inputPassword.text.toString())
                         apply()
+                    }
+
+                    withContext(Dispatchers.Main){
+                        val userViewModel = ViewModelProvider(this@MainActivity)[UserViewModel::class.java]
+                        userViewModel.setAccountData(datas)
                     }
 
 

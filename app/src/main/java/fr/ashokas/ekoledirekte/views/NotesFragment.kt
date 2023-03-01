@@ -8,8 +8,12 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import fr.ashokas.ekoledirekte.R
 import fr.ashokas.ekoledirekte.api.AccountData
+import fr.ashokas.ekoledirekte.views.trimestres.trimestre1Fragment
+import fr.ashokas.ekoledirekte.views.trimestres.trimestre2Fragment
+import fr.ashokas.ekoledirekte.views.trimestres.trimestre3Fragment
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,6 +21,8 @@ import java.util.*
 
 
 class NotesFragment : Fragment() {
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +48,11 @@ class NotesFragment : Fragment() {
         val id = bundle?.getString("id")
         val photo_url = bundle?.getString("photo_url")
 
+        val viewPager2 = view.findViewById<ViewPager2>(R.id.viewPager)
+        val fragmentList = listOf(trimestre1Fragment(), trimestre2Fragment(), trimestre3Fragment())
+        val adapter = gradesPagerAdapter(this@NotesFragment, fragmentList)
+        viewPager2.adapter = adapter
+        viewPager2.isUserInputEnabled = true
 
 
 
@@ -107,9 +118,6 @@ class NotesFragment : Fragment() {
                 2
             }
 
-
-
-
             val previousButton: ImageButton = view.findViewById<ImageButton>(R.id.previous_button)
             val nextButton: ImageButton = view.findViewById<ImageButton>(R.id.next_button)
             val titleText = view.findViewById<TextView>(R.id.title_text)
@@ -118,7 +126,10 @@ class NotesFragment : Fragment() {
                 // Ajoutez ici la logique pour passer au trimestre précédent
                 // et mettre à jour le titre en conséquence
 
-                val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
+                val page = viewPager2.currentItem
+                viewPager2.setCurrentItem(page - 1, true)
+
+                /*val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
                 layoutAVider.removeAllViews()
 
                 currentTrim -= 1
@@ -136,7 +147,7 @@ class NotesFragment : Fragment() {
 
                     }
 
-                }
+                }*/
             }
 
 
@@ -145,7 +156,10 @@ class NotesFragment : Fragment() {
                 // Ajoutez ici la logique pour passer au trimestre suivant
                 // et mettre à jour le titre en conséquence
 
-                val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
+                val page = viewPager2.currentItem
+                viewPager2.setCurrentItem(page + 1, true)
+
+                /*val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
                 layoutAVider.removeAllViews()
 
                 currentTrim += 1
@@ -162,7 +176,7 @@ class NotesFragment : Fragment() {
 
                     }
 
-                }
+                }*/
             }
 
 
@@ -200,7 +214,7 @@ class NotesFragment : Fragment() {
 
 
 
-    fun afficher_notes(view: View, savedInstanceState: Bundle?, text: String) {
+    /*fun afficher_notes(view: View, savedInstanceState: Bundle?, text: String) {
         GlobalScope.launch(Dispatchers.Main) {
             val matiere = TextView(requireContext())
             matiere.textSize = 18f
@@ -261,5 +275,5 @@ class NotesFragment : Fragment() {
             val parentView = view.findViewById<LinearLayout>(R.id.grades_table)
             parentView.addView(matiere)
         }
-    }
+    }*/
 }
