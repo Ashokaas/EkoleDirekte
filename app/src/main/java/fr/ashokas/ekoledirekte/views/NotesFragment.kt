@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -53,6 +55,15 @@ class NotesFragment : Fragment() {
         val adapter = gradesPagerAdapter(this@NotesFragment, fragmentList)
         viewPager2.adapter = adapter
         viewPager2.isUserInputEnabled = true
+
+
+
+        val textView = view.findViewById<TextView>(R.id.matiere1note1)
+        val layoutToExpand = view.findViewById<LinearLayout>(R.id.LayouToExpand)
+
+
+
+
 
 
 
@@ -128,6 +139,7 @@ class NotesFragment : Fragment() {
 
                 val page = viewPager2.currentItem
                 viewPager2.setCurrentItem(page - 1, true)
+                titleText.text = "Trimestre "
 
                 /*val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
                 layoutAVider.removeAllViews()
@@ -158,6 +170,7 @@ class NotesFragment : Fragment() {
 
                 val page = viewPager2.currentItem
                 viewPager2.setCurrentItem(page + 1, true)
+                titleText.text = "Trimestre "
 
                 /*val layoutAVider = view.findViewById<LinearLayout>(R.id.grades_table)
                 layoutAVider.removeAllViews()

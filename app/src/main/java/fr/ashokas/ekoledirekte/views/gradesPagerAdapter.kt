@@ -14,4 +14,6 @@ class gradesPagerAdapter(fragment: Fragment, private val fragmentList: List<Frag
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
+
+
 }
