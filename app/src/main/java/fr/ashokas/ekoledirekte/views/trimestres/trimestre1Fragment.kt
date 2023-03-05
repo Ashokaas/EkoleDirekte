@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.RelativeLayout
+import android.widget.TextView
 import fr.ashokas.ekoledirekte.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +32,8 @@ class trimestre1Fragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -37,6 +43,42 @@ class trimestre1Fragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trimestre1, container, false)
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val frag = getView()
+
+
+        val textView = view.findViewById<TextView>(R.id.matiere1note1)
+        val layoutToExpand = view.findViewById<RelativeLayout>(R.id.LayouToExpand)
+
+        textView.setOnClickListener {
+            if (layoutToExpand.visibility == View.GONE) {
+                // Si le layout est caché, on l'affiche en se déroulant
+                layoutToExpand.visibility = View.VISIBLE
+                val animate = TranslateAnimation(0F, 0F, -layoutToExpand.height.toFloat(), 0F)
+                animate.duration = 500
+                animate.fillAfter = true
+                layoutToExpand.startAnimation(animate)
+            } else {
+                // Si le layout est affiché, on le cache en se repliant
+                val animate = TranslateAnimation(0F, 0F, 0F, -layoutToExpand.height.toFloat())
+                animate.duration = 500
+                animate.fillAfter = true
+                animate.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {}
+                    override fun onAnimationEnd(animation: Animation) {
+                        layoutToExpand.visibility = View.GONE
+                    }
+                    override fun onAnimationRepeat(animation: Animation) {}
+                })
+                layoutToExpand.startAnimation(animate)
+            }
+        }
+
+    }
+
 
     companion object {
         /**

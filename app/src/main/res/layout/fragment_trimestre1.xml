@@ -56,15 +56,15 @@
                 android:padding="8dp"
                 android:paddingStart="20dp">
 
-                <TextView
-                    android:id="@+id/matiere1note1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="17/20 (2)"
-                    android:textColor="@color/black"
-                    android:focusable="true" />
+            <TextView
+                android:id="@+id/matiere1note1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/poppins_light"
+                android:text="17/20 (2)"
+                android:textColor="@color/black"
+                android:focusable="true" />
 
 
                 <TextView
@@ -82,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:paddingStart="20dp">
+                android:paddingStart="20dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

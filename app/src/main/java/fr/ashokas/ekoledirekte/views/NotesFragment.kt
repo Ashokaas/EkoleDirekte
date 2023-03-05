@@ -58,10 +58,6 @@ class NotesFragment : Fragment() {
 
 
 
-        val textView = view.findViewById<TextView>(R.id.matiere1note1)
-        val layoutToExpand = view.findViewById<LinearLayout>(R.id.LayouToExpand)
-
-
 
 
 
