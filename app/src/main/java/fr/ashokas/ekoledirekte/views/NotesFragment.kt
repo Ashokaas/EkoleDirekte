@@ -60,9 +60,6 @@ class NotesFragment : Fragment() {
 
 
 
-
-
-
         CoroutineScope(Dispatchers.IO).launch {
             val notes = CoroutineScope(Dispatchers.IO).async {
                 return@async AccountData.getNotes(
@@ -113,7 +110,7 @@ class NotesFragment : Fragment() {
 
             println(grades)
 
-
+            /*
             var calendar = Calendar.getInstance()
             val currentMonth = calendar.get(Calendar.MONTH) + 1
 
@@ -123,7 +120,7 @@ class NotesFragment : Fragment() {
                 1
             } else {
                 2
-            }
+            }*/
 
             val previousButton: ImageButton = view.findViewById<ImageButton>(R.id.previous_button)
             val nextButton: ImageButton = view.findViewById<ImageButton>(R.id.next_button)
@@ -157,6 +154,9 @@ class NotesFragment : Fragment() {
 
                 }*/
             }
+
+
+
 
 
 
@@ -194,16 +194,9 @@ class NotesFragment : Fragment() {
 
             /*
             for (trim in 0 until 3) {
-                for (mat in grades[trim].keys) {
-                    println(grades[trim][mat])
-                    afficher_matiere(view, savedInstanceState, mat)
-                    for (note in grades[trim][mat]!!) {
-                        val noteAffiche = "${note[0]} : ${note[1]}/${note[2]}"
-                        afficher_notes(view, savedInstanceState, noteAffiche)
-
-                    }
-
-                }
+                val trim1 = Bundle()
+                trim1.putSerializable("oui", oui)
+                fragmentList[0].arguments = trim1
             }*/
         }
 

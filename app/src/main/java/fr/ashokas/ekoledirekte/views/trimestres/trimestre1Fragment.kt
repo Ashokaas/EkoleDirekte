@@ -49,6 +49,18 @@ class trimestre1Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val frag = getView()
 
+        val args = arguments
+        val value = args?.getString("oui")
+
+        println(value)
+        println(value)
+        println(value)
+        println(value)
+        println(value)
+        println(value)
+
+
+
 
         val textView = view.findViewById<TextView>(R.id.matiere1note1)
         val layoutToExpand = view.findViewById<RelativeLayout>(R.id.LayouToExpand)
@@ -57,23 +69,11 @@ class trimestre1Fragment : Fragment() {
             if (layoutToExpand.visibility == View.GONE) {
                 // Si le layout est caché, on l'affiche en se déroulant
                 layoutToExpand.visibility = View.VISIBLE
-                val animate = TranslateAnimation(0F, 0F, -layoutToExpand.height.toFloat(), 0F)
-                animate.duration = 500
-                animate.fillAfter = true
-                layoutToExpand.startAnimation(animate)
             } else {
                 // Si le layout est affiché, on le cache en se repliant
-                val animate = TranslateAnimation(0F, 0F, 0F, -layoutToExpand.height.toFloat())
-                animate.duration = 500
-                animate.fillAfter = true
-                animate.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(animation: Animation) {}
-                    override fun onAnimationEnd(animation: Animation) {
-                        layoutToExpand.visibility = View.GONE
-                    }
-                    override fun onAnimationRepeat(animation: Animation) {}
-                })
-                layoutToExpand.startAnimation(animate)
+
+                layoutToExpand.visibility = View.GONE
+
             }
         }
 
