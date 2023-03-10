@@ -5,6 +5,7 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -107,14 +108,11 @@ class AccountData {
                 val troisiemeTrim = trimestres.getJSONObject(2)
                 val annee = trimestres.getJSONObject(3)
 
-                val matieres: Array<String>? =
-                    if (premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") &&
-                        deuxiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines") == troisiemeTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")) {
-                        val disciplines = premierTrim.getJSONObject("ensembleMatieres").getJSONArray("disciplines")
-                        Array(disciplines.length()) {disciplines.getString(it)}
-                    } else {
-                        null
-                    }
+                val matieres: Array<Array<JSONObject>> =
+                    Array(3) {
+                        Array(trimestres.getJSONObject(it).getJSONObject("ensembleMatieres").getJSONArray("disciplines").length()) {it2 ->
+                            trimestres.getJSONObject(it).getJSONObject("ensembleMatieres")
+                            .getJSONArray("disciplines").getJSONObject(it2)}}
 
                 return mapOf(
                     "notesJson" to notesJson,

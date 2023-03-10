@@ -3,8 +3,6 @@ package fr.ashokas.ekoledirekte
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 
 import fr.ashokas.ekoledirekte.api.AccountData
 
@@ -13,9 +11,9 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
-import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import fr.ashokas.ekoledirekte.api.UserViewModel
 import fr.ashokas.ekoledirekte.views.Accueil
@@ -119,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main){
                         val userViewModel = ViewModelProvider(this@MainActivity)[UserViewModel::class.java]
-                        userViewModel.setAccountData(datas)
+                        userViewModel.accountData = MutableLiveData(datas)
                     }
 
 

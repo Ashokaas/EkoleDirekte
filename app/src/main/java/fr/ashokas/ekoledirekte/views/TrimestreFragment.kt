@@ -1,36 +1,36 @@
-package fr.ashokas.ekoledirekte.views.trimestres
+package fr.ashokas.ekoledirekte.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
-import android.widget.RelativeLayout
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import fr.ashokas.ekoledirekte.R
+import fr.ashokas.ekoledirekte.api.UserViewModel
+import fr.ashokas.ekoledirekte.api.recycleAdapter
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val TRIMESTRE = "param1"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [trimestre1Fragment.newInstance] factory method to
+ * Use the [TrimestreFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class trimestre1Fragment : Fragment() {
+class TrimestreFragment() : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var trimestre: Int? = null
+    lateinit var adapter: recycleAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            trimestre = it.getInt(TRIMESTRE)
         }
 
 
@@ -41,7 +41,7 @@ class trimestre1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trimestre1, container, false)
+        return inflater.inflate(R.layout.fragment_trimestre, container, false)
     }
 
 
@@ -59,10 +59,22 @@ class trimestre1Fragment : Fragment() {
         println(value)
         println(value)
 
+        val userViewModel = ViewModelProvider(requireParentFragment())[UserViewModel::class.java]
+
+        userViewModel.notesAndMatieres.observe(viewLifecycleOwner) {
+            val notesTrim = it.first[trimestre!! - 1] as Map<String, Any>
+            val matieresTrim = it.second[trimestre!! - 1] as Array<JSONObject>
+
+            val recyclerView: RecyclerView? = frag?.findViewById(R.id.testy)
+            recyclerView?.layoutManager = LinearLayoutManager(context)
+            adapter = recycleAdapter(context, Pair(notesTrim, matieresTrim))
+            recyclerView?.adapter = adapter
+        }
 
 
 
-        val textView = view.findViewById<TextView>(R.id.matiere1note1)
+
+        /*val textView = view.findViewById<TextView>(R.id.matiere1note1)
         val layoutToExpand = view.findViewById<RelativeLayout>(R.id.LayouToExpand)
 
         textView.setOnClickListener {
@@ -75,7 +87,7 @@ class trimestre1Fragment : Fragment() {
                 layoutToExpand.visibility = View.GONE
 
             }
-        }
+        }*/
 
     }
 
@@ -85,17 +97,15 @@ class trimestre1Fragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param trimestre Trimestre pour ce fragment
          * @return A new instance of fragment trimestre1Fragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            trimestre1Fragment().apply {
+        fun newInstance(trimestre: Int) =
+            TrimestreFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(TRIMESTRE, trimestre)
                 }
             }
     }

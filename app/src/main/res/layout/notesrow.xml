@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/noteView1"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/noteView2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/noteView3"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutToExpand"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#DADADA"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/nomDevoir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:paddingBottom="5dp"
+            android:text="La mathématique au Congo :"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/dateDevoir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:paddingVertical="3dp"
+            android:paddingStart="20dp"
+            android:text="30 Février 2042"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/noteMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingVertical="3dp"
+            android:paddingStart="20dp"
+            android:text="- 8,5/20"
+            android:textColor="@color/red_primary" />
+
+        <TextView
+            android:id="@+id/noteEleve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingVertical="3dp"
+            android:paddingStart="20dp"
+            android:text="14,23/20"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/noteMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingVertical="3dp"
+            android:paddingStart="20dp"
+            android:text="+ 19,5"
+            android:textColor="@color/green_third" />
+    </LinearLayout>
+
+</LinearLayout>

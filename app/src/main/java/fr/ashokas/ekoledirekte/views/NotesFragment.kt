@@ -4,22 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import android.widget.*
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import fr.ashokas.ekoledirekte.R
 import fr.ashokas.ekoledirekte.api.AccountData
-import fr.ashokas.ekoledirekte.views.trimestres.trimestre1Fragment
-import fr.ashokas.ekoledirekte.views.trimestres.trimestre2Fragment
-import fr.ashokas.ekoledirekte.views.trimestres.trimestre3Fragment
+import fr.ashokas.ekoledirekte.api.UserViewModel
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 
 class NotesFragment : Fragment() {
@@ -51,7 +46,11 @@ class NotesFragment : Fragment() {
         val photo_url = bundle?.getString("photo_url")
 
         val viewPager2 = view.findViewById<ViewPager2>(R.id.viewPager)
-        val fragmentList = listOf(trimestre1Fragment(), trimestre2Fragment(), trimestre3Fragment())
+        val fragmentList = listOf(
+            TrimestreFragment.newInstance(1),
+            TrimestreFragment.newInstance(2),
+            TrimestreFragment.newInstance(3))
+
         val adapter = gradesPagerAdapter(this@NotesFragment, fragmentList)
         viewPager2.adapter = adapter
         viewPager2.isUserInputEnabled = true
@@ -80,7 +79,7 @@ class NotesFragment : Fragment() {
             for (i in 0 until notesJArray.length()) {
                 val note: JSONObject = notesJArray.get(i) as JSONObject
 
-                val trimestreNote = note["codePeriode"].toString().get(3).digitToInt() - 1
+                val trimestreNote = note["codePeriode"].toString()[3].digitToInt() - 1
 
                 println(note)
 
@@ -109,6 +108,14 @@ class NotesFragment : Fragment() {
             }
 
             println(grades)
+
+            withContext(Dispatchers.Main) {
+                val userViewModel = ViewModelProvider(this@NotesFragment)[UserViewModel::class.java]
+                val matieres = notes["matieres"] as Array<Array<Any>>
+                userViewModel.notes = MutableLiveData(grades)
+                userViewModel.matieres = MutableLiveData(matieres)
+                userViewModel.notesAndMatieres = MutableLiveData(Pair(grades, matieres))
+            }
 
             /*
             var calendar = Calendar.getInstance()
