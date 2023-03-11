@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
+import fr.ashokas.ekoledirekte.api.formatage_nom_prenom
 
 
 class Accueil : AppCompatActivity() {
@@ -75,7 +76,7 @@ class Accueil : AppCompatActivity() {
 
         // Affichage du nom et du prénom
         val username = findViewById<TextView>(R.id.username)
-        username.text = "Bienvenue $prenom $nom"
+        username.text = formatage_nom_prenom("$prenom $nom")
 
         // Switch entre fragments avec bundle wooouaw
         navigationView.setOnItemSelectedListener {item ->

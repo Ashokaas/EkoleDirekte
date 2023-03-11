@@ -8,6 +8,10 @@
     <color name="grey">#DEDEDE</color>
     <color name="grey2">#A5A5A5</color>
 
+    <color name="new_grey1">#495058</color>
+    <color name="new_grey2">#696d76</color>
+    <color name="grey_small_text">#c6c6c6</color>
+
     <color name="light_grey">#F9F9F9</color>
     <color name="white">#FFFFFFFF</color>
 
