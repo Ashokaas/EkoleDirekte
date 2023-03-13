@@ -5,7 +5,6 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -134,7 +133,6 @@ class AccountData {
                 "matieres" to "")}
         }
         suspend fun getMessages(token: String, id: Int): Map<String, Any?> {
-            // On va devoir décoder le contenu du message en sachant qu'il est en base 64 et que ca a l'air galère
             val messages = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
                 val payload = "data={\"token\":\"$token\"}"
@@ -166,9 +164,30 @@ class AccountData {
                 "messagesSent" to messagesReceived,
                 "messagesReceived" to messagesSent
             )
-        }/*
-        suspend fun getSchedule(token: String, id: Int): JSONObject {
+        }
+        suspend fun getMessageContent(token: String, id:Int, idMessage: Int): JSONObject {
             val datas: JSONObject = withContext(Dispatchers.IO) {
+                val client = OkHttpClient()
+                val payload = "data={\"token\": $token}"
+                val body = RequestBody.create(MediaType.parse("text/plain"), payload)
+                val request = Request.Builder()
+                    .url("https://api.ecoledirecte.com/v3/eleves/$id/messages/$idMessage.awp?verbe=get&mode=destinataire&v=4.27.5")
+                    .post(body)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader(
+                        "User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
+                    )
+                    .addHeader("Referer", "https://www.ecoledirecte.com/")
+                    .build()
+                val response = client.newCall(request).execute()
+
+                return@withContext JSONObject(response.body()?.string())
+            }
+            return datas.getJSONObject("data")
+        }
+        suspend fun getHomework(token: String, id: Int): JSONObject {
+            val datas: String? = withContext(Dispatchers.IO) {
                 val client = OkHttpClient()
                 val payload = "data={\"token\":$token}"
                 val body = RequestBody.create(MediaType.parse("text/plain"), payload)
@@ -176,15 +195,41 @@ class AccountData {
                     .url("https://api.ecoledirecte.com/v3/Eleves/$id/cahierdetexte.awp?verbe=get&v=4.26.2")
                     .post(body)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36")
+                    .addHeader(
+                        "User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
+                    )
                     .addHeader("Referer", "https://www.ecoledirecte.com/")
                     .build()
                 val response = client.newCall(request).execute()
 
                 return@withContext response.body()?.string()
             }
-            val days: JSONObject = datas.getJSONObject("data")
-            return days
-        }*/
+            return JSONObject(datas)
+        }
+        suspend fun getSchedule(token: String, id: Int, dateDebut: String, dateFin: String): JSONObject {
+            val datas: JSONObject = withContext(Dispatchers.IO) {
+                val client = OkHttpClient()
+                val payload = "data={\"token\": $token," +
+                        "\"dateDebut\": $dateDebut," +
+                        "\"dateFin\": $dateFin," +
+                        "\"avecTrous\": false}"
+                val body = RequestBody.create(MediaType.parse("text/plain"), payload)
+                val request = Request.Builder()
+                    .url("https://api.ecoledirecte.com/v3/E/$id/emploidutemps.awp?verbe=get&v=4.27.5")
+                    .post(body)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader(
+                        "User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
+                    )
+                    .addHeader("Referer", "https://www.ecoledirecte.com/")
+                    .build()
+                val response = client.newCall(request).execute()
+
+                return@withContext JSONObject(response.body()?.string())
+            }
+            return datas
+        }
     }
 }

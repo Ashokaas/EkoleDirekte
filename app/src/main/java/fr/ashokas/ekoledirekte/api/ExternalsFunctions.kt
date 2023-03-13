@@ -1,7 +1,6 @@
 package fr.ashokas.ekoledirekte.api
 
-import org.json.JSONArray
-import org.json.JSONObject
+import android.util.Base64
 
 /*
 class ExternalsFunctions {
@@ -18,7 +17,15 @@ class ExternalsFunctions {
 
 
     }
+
 }*/
+
+fun decodeB64(textB64: String): String {
+    // Fonction permettant de décoder une chaine de caractère en base 64 et de la renvoyer en UTF-8
+    val data = Base64.decode(textB64, Base64.DEFAULT)
+
+    return String(data)
+}
 
 
 // La fonction prend une chaîne de caractères en entrée et retourne la même chaîne
