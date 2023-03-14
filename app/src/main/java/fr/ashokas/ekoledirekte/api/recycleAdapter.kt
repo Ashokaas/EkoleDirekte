@@ -2,6 +2,9 @@ package fr.ashokas.ekoledirekte.api
 
 import android.content.Context
 import android.graphics.Color
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.SubscriptSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -121,7 +124,16 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
                 for (i in 1 until data.size) {
                     val note = data[i] as List<String>
                     val textView = viewHolder.noteViews[i-1]
-                    textView.text = note[1] + "/" + note[2] + " (" + note[3] + ")"
+                    val note_coef = note[1] + "/" + note[2] + " " + "(" + note[3] + ")"
+                    val coeflen = note[3].toString().length
+                    val notespan = SpannableString(note_coef)
+                    /*
+                    // subscript
+                    notespan.setSpan(SubscriptSpan(), 0, note_coef.length - coeflen, 0);
+                    // make the subscript text smaller
+                    notespan.setSpan(RelativeSizeSpan(0.5f), note_coef.length - coeflen, note_coef.length, 0)
+                    */
+                    textView.text = note_coef
                     textView.setOnClickListener { changerDropdown(viewHolder, note, textView, position) }
                 }
             }
@@ -139,7 +151,7 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
             holder.nomDevoir.text = note[0]
             holder.dateDevoir.text = note[4]
             holder.noteMini.text = "- " + note[6]
-            holder.noteEleve.text = note[1]
+            holder.noteEleve.text = note[5]
             holder.noteMax.text = "+ " + note[7]
             prevSelect = Triple(pos, holder, textView)
         } else if (prevSelect!!.first == pos) {
@@ -153,7 +165,7 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
                 holder.nomDevoir.text = note[0]
                 holder.dateDevoir.text = note[4]
                 holder.noteMini.text = "- " + note[6]
-                holder.noteEleve.text = note[1]
+                holder.noteEleve.text = note[5]
                 holder.noteMax.text = "+ " + note[7]
                 prevSelect = Triple(pos, holder, textView)
             }
@@ -166,7 +178,7 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
             holder.nomDevoir.text = note[0]
             holder.dateDevoir.text = note[4]
             holder.noteMini.text = "- " + note[6]
-            holder.noteEleve.text = note[1]
+            holder.noteEleve.text = note[5]
             holder.noteMax.text = "+ " + note[7]
             prevSelect = Triple(pos, holder, textView)
         }
