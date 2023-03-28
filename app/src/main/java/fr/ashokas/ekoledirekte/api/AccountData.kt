@@ -41,16 +41,25 @@ class AccountData {
                     val nom = account.getString("nom")
                     val email = account.getString("email")
                     val typeCompte = account.getString("typeCompte")
+                    val token = accountJson.getString("token")
+                    val id = account.getInt("id")
                     return@async mapOf(
                         "data" to accountJson,
+                        "prenom" to prenom,
+                        "nom" to nom,
                         "code" to 200,
                         "typeCompte" to typeCompte,
+                        "token" to token,
+                        "id" to id,
                         "message" to "$prenom $nom $email"
                     )
                 } else {
                     return@async mapOf(
                         "data" to JSONObject(),
                         "code" to 505,
+                        "typeCompte" to "",
+                        "token" to "",
+                        "id" to -1,
                         "message" to accountJson.getString("message")
                     )
                 }
