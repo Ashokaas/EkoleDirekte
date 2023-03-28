@@ -106,9 +106,15 @@ class MainActivity : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                     }
                 }
-
+                // Compte non élève
+                if (datas["code"] == 200 && datas["typeCompte"] != "E") {
+                    runOnUiThread {
+                        findViewById<TextView>(R.id.text_view_error_login).text = "Unsupported account type"
+                        progressBar.visibility = View.GONE
+                    }
+                }
                 // Utilisateur connecté
-                if (datas["code"] == 200) {
+                else if (datas["code"] == 200) {
                     with (sharedPref.edit()) {
                         putString("rememberId", inputIdentifiant.text.toString())
                         putString("rememberPassword", inputPassword.text.toString())

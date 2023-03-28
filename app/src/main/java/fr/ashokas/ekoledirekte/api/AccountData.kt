@@ -5,6 +5,7 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -35,39 +36,21 @@ class AccountData {
                 println(account)
                 val accountJson = JSONObject(account)
                 if (accountJson.getInt("code") == 200) {
-                    val data = accountJson.getJSONObject("data")
-                    val accounts = data.getJSONArray("accounts")
-                    val token = accountJson.getString("token")
-                    val firstAccount = accounts.getJSONObject(0)
-                    val photo = firstAccount.getJSONObject("profile").getString("photo")
-                    val prenom: String = firstAccount.getString("prenom")
-                    val nom: String = firstAccount.getString("nom")
-                    val email: String = firstAccount.getString("email")
-                    val id = firstAccount.getInt("id")
+                    val account: JSONObject = accountJson.getJSONObject("data").getJSONArray("accounts").getJSONObject(0)
+                    val prenom = account.getString("prenom")
+                    val nom = account.getString("nom")
+                    val email = account.getString("email")
+                    val typeCompte = account.getString("typeCompte")
                     return@async mapOf(
-                        "data" to data,
+                        "data" to accountJson,
                         "code" to 200,
-                        "token" to token,
-                        "accounts" to accounts,
-                        "firstAccount" to firstAccount,
-                        "photo" to photo,
-                        "prenom" to prenom,
-                        "nom" to nom,
-                        "email" to email,
-                        "id" to id,
+                        "typeCompte" to typeCompte,
                         "message" to "$prenom $nom $email"
                     )
                 } else {
                     return@async mapOf(
-                        "data" to "",
+                        "data" to JSONObject(),
                         "code" to 505,
-                        "token" to "",
-                        "accounts" to "",
-                        "firstAccount" to "",
-                        "prenom" to "",
-                        "nom" to "",
-                        "email" to "",
-                        "id" to -1,
                         "message" to accountJson.getString("message")
                     )
                 }
