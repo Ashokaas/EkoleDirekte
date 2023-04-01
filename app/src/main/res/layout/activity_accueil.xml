@@ -160,7 +160,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@drawable/style_gradient_blue_grey"
+        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@drawable/bottom_nav_color_selector"
+
+        />
 
 </RelativeLayout>
 

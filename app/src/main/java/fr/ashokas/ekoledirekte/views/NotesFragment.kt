@@ -90,11 +90,11 @@ class NotesFragment : Fragment() {
                 val surcmbNote = note["noteSur"]
                 val coefNote = note["coef"]
 
-                val dateNote = note["date"]
+                val dateNote = "Date : " + note["date"]
 
-                val moyenneClasse = note["moyenneClasse"]
-                val minClasse = note["minClasse"]
-                val maxClasse = note["maxClasse"]
+                val moyenneClasse = "Moyenne : " + note["moyenneClasse"]
+                val minClasse = "Note minimale : " + note["minClasse"]
+                val maxClasse = "Note maximale : " + note["maxClasse"]
 
                 if (matiereNote !in grades[trimestreNote]) {
                     grades[trimestreNote][matiereNote as String] = mutableListOf()

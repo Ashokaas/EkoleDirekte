@@ -22,7 +22,7 @@ import okhttp3.*
 
 class MainActivity : AppCompatActivity() {
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
 
@@ -38,25 +38,28 @@ class MainActivity : AppCompatActivity() {
         }*/
 
 
-
-
-
-
         val buttonLogin = findViewById<Button>(R.id.login_button)
 
         val inputIdentifiant = findViewById<EditText>(R.id.user_id)
         val inputPassword = findViewById<EditText>(R.id.user_mdp)
 
-
+        val switchIsConnected: Switch = findViewById<Switch>(R.id.switch_remember_me)
+        switchIsConnected.isChecked = false
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
 
+        val rememberSwitchCheck = sharedPref.getString("rememberSwitchCheck", "")
 
 
-        val rememberId = sharedPref.getString("rememberId", "")
-        inputIdentifiant.setText(rememberId)
-        val rememberPassword = sharedPref.getString("rememberPassword", "")
-        inputPassword.setText(rememberPassword)
+
+        if (rememberSwitchCheck == "true") {
+            val rememberId = sharedPref.getString("rememberId", "")
+            inputIdentifiant.setText(rememberId)
+            val rememberPassword = sharedPref.getString("rememberPassword", "")
+            inputPassword.setText(rememberPassword)
+
+            switchIsConnected.isChecked = true
+        }
 
 
         val progressBar = findViewById<RelativeLayout>(R.id.progressBar)
@@ -109,17 +112,30 @@ class MainActivity : AppCompatActivity() {
                 // Compte non élève
                 if (datas["code"] == 200 && datas["typeCompte"] != "E") {
                     runOnUiThread {
-                        findViewById<TextView>(R.id.text_view_error_login).text = "Unsupported account type"
+                        findViewById<TextView>(R.id.text_view_error_login).text = "Ce compte n'est pas supporté par notre application il s'agit probablement d'un compte parent"
                         progressBar.visibility = View.GONE
                     }
                 }
                 // Utilisateur connecté
                 else if (datas["code"] == 200) {
-                    with (sharedPref.edit()) {
-                        putString("rememberId", inputIdentifiant.text.toString())
-                        putString("rememberPassword", inputPassword.text.toString())
-                        apply()
+
+                    if (switchIsConnected.isChecked) {
+                        with (sharedPref.edit()) {
+                            putString("rememberSwitchCheck", "true")
+                            putString("rememberId", inputIdentifiant.text.toString())
+                            putString("rememberPassword", inputPassword.text.toString())
+                            apply()
+                        }
+                    } else {
+                        with (sharedPref.edit()) {
+                            putString("rememberId", "")
+                            putString("rememberPassword", "")
+                            putString("rememberSwitchCheck", "false")
+                            apply()
+                        }
                     }
+
+
 
                     withContext(Dispatchers.Main){
                         val userViewModel = ViewModelProvider(this@MainActivity)[UserViewModel::class.java]

@@ -8,10 +8,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/green_secondary"
+        android:background="@color/green_third"
         android:textColor="@color/white"
         android:text="TextView"
-        android:paddingVertical="3dp"
+        android:paddingVertical="10dp"
         android:paddingStart="16dp"
         android:textSize="18sp" />
 </LinearLayout>

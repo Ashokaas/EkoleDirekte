@@ -113,6 +113,8 @@
         android:text="Rester connecté"
         android:textSize="18sp"
         android:switchPadding="16dp"
+        android:thumbTint="@color/green_secondary"
+        android:trackTint="@color/green_third"
         android:checked="false"/>
 
 
