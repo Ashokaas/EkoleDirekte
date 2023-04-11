@@ -1,10 +1,12 @@
 package fr.ashokas.ekoledirekte.views
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import fr.ashokas.ekoledirekte.R
 import fr.ashokas.ekoledirekte.api.AccountData
 import fr.ashokas.ekoledirekte.api.UserViewModel
+import fr.ashokas.ekoledirekte.api.convertirDate
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -30,6 +33,7 @@ class NotesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_notes, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val frag = getView()
@@ -90,11 +94,11 @@ class NotesFragment : Fragment() {
                 val surcmbNote = note["noteSur"]
                 val coefNote = note["coef"]
 
-                val dateNote = "Date : " + note["date"]
+                val dateNote = convertirDate(note["date"] as String)
 
-                val moyenneClasse = "Moyenne : " + note["moyenneClasse"]
-                val minClasse = "Note minimale : " + note["minClasse"]
-                val maxClasse = "Note maximale : " + note["maxClasse"]
+                val moyenneClasse = note["moyenneClasse"]
+                val minClasse = note["minClasse"]
+                val maxClasse = note["maxClasse"]
 
                 if (matiereNote !in grades[trimestreNote]) {
                     grades[trimestreNote][matiereNote as String] = mutableListOf()

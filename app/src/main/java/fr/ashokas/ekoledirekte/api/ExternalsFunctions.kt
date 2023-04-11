@@ -1,6 +1,26 @@
 package fr.ashokas.ekoledirekte.api
 
+import android.os.Build
 import android.util.Base64
+import androidx.annotation.RequiresApi
+
+
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun convertirDate(dateStr: String): String {
+    // Parser la date
+    val date = LocalDate.parse(dateStr)
+
+    // Formater la date en utilisant le format français
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale("fr"))
+    return date.format(formatter)
+}
+
+
 
 /*
 class ExternalsFunctions {
