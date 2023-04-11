@@ -145,44 +145,36 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
     }
 
     private fun changerDropdown(holder: NotesViewHolder, note: List<String>, textView: TextView, pos: Int) {
-        if (prevSelect == null) {
-            holder.layoutToExpand.layoutParams.height = LayoutParams.WRAP_CONTENT
-            textView.setBackgroundColor(Color.parseColor("#DADADA"))
-            holder.nomDevoir.text = note[0]
-            holder.dateDevoir.text = note[4]
-            holder.noteMini.text = "- " + note[6]
-            holder.noteEleve.text = note[5]
-            holder.noteMax.text = "+ " + note[7]
-            prevSelect = Triple(pos, holder, textView)
-        } else if (prevSelect!!.first == pos) {
-            if (textView == prevSelect!!.third) {
-                prevSelect!!.second.layoutToExpand.layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0)
-                prevSelect!!.third.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                prevSelect = null
-            } else {
-                prevSelect!!.third.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                textView.setBackgroundColor(Color.parseColor("#DADADA"))
-                holder.nomDevoir.text = note[0]
-                holder.dateDevoir.text = note[4]
-                holder.noteMini.text = "- " + note[6]
-                holder.noteEleve.text = note[5]
-                holder.noteMax.text = "+ " + note[7]
-                prevSelect = Triple(pos, holder, textView)
-            }
-        } else {
-            prevSelect!!.second.layoutToExpand.layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0)
-            prevSelect!!.third.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        // Vérifier si un élément a déjà été sélectionné précédemment
+        val isPrevSelected = prevSelect != null
 
+        // Vérifier si l'élément actuellement sélectionné est le même que l'élément précédemment sélectionné
+        val isSameItemSelected = isPrevSelected && prevSelect!!.first == pos && textView == prevSelect!!.third
+
+        if (isSameItemSelected) {
+            // Si l'élément sélectionné est le même que l'élément précédemment sélectionné, réduire la vue et supprimer la sélection
+            prevSelect!!.second.layoutToExpand.layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0)
+            prevSelect!!.third.setBackgroundColor(Color.parseColor("#2e3439"))
+            prevSelect = null
+        } else {
+            // Si un autre élément est sélectionné, réduire la vue de l'élément précédemment sélectionné et mettre à jour la sélection en cours
+            prevSelect?.let {
+                it.second.layoutToExpand.layoutParams = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0)
+                it.third.setBackgroundColor(Color.parseColor("#2e3439"))
+            }
+
+            // Étendre la vue de l'élément sélectionné et mettre à jour les informations d'affichage
             holder.layoutToExpand.layoutParams.height = LayoutParams.WRAP_CONTENT
-            textView.setBackgroundColor(Color.parseColor("#DADADA"))
+            textView.setBackgroundColor(Color.parseColor("#3e4552"))
             holder.nomDevoir.text = note[0]
             holder.dateDevoir.text = note[4]
-            holder.noteMini.text = "- " + note[6]
-            holder.noteEleve.text = note[5]
-            holder.noteMax.text = "+ " + note[7]
+            holder.noteMini.text = "Note min : -" + note[6]
+            holder.noteEleve.text = "Moyenne : " + note[5]
+            holder.noteMax.text = "Note max : +" + note[7]
             prevSelect = Triple(pos, holder, textView)
         }
     }
+
 
     override fun getItemCount(): Int {
         return dataFinales.size
