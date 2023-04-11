@@ -19,4 +19,9 @@
         android:enabled="true"
         android:icon="@drawable/icons_navbar_messages"
         android:title="Messages"/>
+    <item
+        android:id="@+id/devoirsFragment"
+        android:enabled="true"
+        android:icon="@drawable/icons_navbar_devoirs"
+        android:title="Devoirs"/>
 </menu>
