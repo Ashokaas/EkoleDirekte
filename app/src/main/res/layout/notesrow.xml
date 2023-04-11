@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/grey2">
+        android:background="#2e3439"
+        android:layout_marginTop="4dp">
 
         <TextView
             android:id="@+id/noteView1"
@@ -49,7 +50,7 @@
         android:id="@+id/layoutToExpand"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#DADADA"
+        android:background="#3e4552"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -82,7 +83,7 @@
             android:paddingVertical="3dp"
             android:paddingStart="20dp"
             android:text="- 8,5/20"
-            android:textColor="@color/red_primary" />
+            android:textColor="#EF0000" />
 
         <TextView
             android:id="@+id/noteEleve"
@@ -102,7 +103,7 @@
             android:paddingVertical="3dp"
             android:paddingStart="20dp"
             android:text="+ 19,5"
-            android:textColor="@color/green_third" />
+            android:textColor="#00D857" />
     </LinearLayout>
 
 </LinearLayout>
