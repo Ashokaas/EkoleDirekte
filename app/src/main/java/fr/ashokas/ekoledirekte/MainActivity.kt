@@ -1,8 +1,11 @@
 package fr.ashokas.ekoledirekte
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 
 import fr.ashokas.ekoledirekte.api.AccountData
 
@@ -12,7 +15,9 @@ import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import fr.ashokas.ekoledirekte.api.UserViewModel
@@ -22,6 +27,7 @@ import okhttp3.*
 
 class MainActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -49,6 +55,24 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
 
         val rememberSwitchCheck = sharedPref.getString("rememberSwitchCheck", "")
+
+        // Créer un canal de notification
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "oui"
+        val channelName = "non"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val notificationChannel = NotificationChannel(channelId, channelName, importance)
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        // Construire la notification
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_arrow_back)
+            .setContentTitle("Titre de la notification")
+            .setContentText("Contenu de la notification")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // Envoyer la notification
+        notificationManager.notify(0, notificationBuilder.build())
 
 
 
