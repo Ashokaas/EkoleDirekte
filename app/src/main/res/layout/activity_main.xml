@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="top">
+    android:gravity="top"
+    android:background="@drawable/style_gradient_blue_grey">
 
 
 
@@ -42,7 +43,7 @@
         android:padding="10dp"
         android:text="Bienvenue sur l'applikation Ekole Direkte !"
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/white"
         android:textSize="18sp" />
 
     <TextView
@@ -53,7 +54,7 @@
         android:fontFamily="@font/poppins_light"
         android:text="@string/welcome_text"
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/white"
         android:textSize="15sp" />
 
     <ImageView
@@ -69,28 +70,28 @@
         android:fontFamily="@font/poppins_bold"
         android:text="@string/main_title"
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/white"
         android:textSize="28sp" />
 
     <EditText
         android:id="@+id/user_id"
-        style="@style/EditTextBottomBorder"
+        android:background="@drawable/style_edittextbottomborder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="7dp"
         android:drawableStart="@drawable/icons_login_userface"
-
+        android:textColorHint="@color/grey_small_text"
         android:drawablePadding="12dp"
         android:hint="@string/identifiant_text"
         android:inputType="textNoSuggestions|textVisiblePassword"
         android:padding="16dp"
-        android:textColor="#000"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/user_mdp"
-        style="@style/EditTextBottomBorder"
+        android:background="@drawable/style_edittextbottomborder"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -101,7 +102,8 @@
         android:hint="@string/mdp_text"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:textColor="#000"
+        android:textColorHint="@color/grey_small_text"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
     <Switch
@@ -111,16 +113,18 @@
         android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:text="Rester connecté"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:switchPadding="16dp"
-        android:thumbTint="@color/green_secondary"
-        android:trackTint="@color/green_third"
+        android:thumbTint="#00A4D1"
+        android:trackTint="#0BA1A4"
         android:checked="false"/>
 
 
     <Button
         android:id="@+id/login_button"
-        style="@style/ButtonLogin"
+        android:background="@drawable/style_loginbutton"
+        android:textColor="@color/white"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

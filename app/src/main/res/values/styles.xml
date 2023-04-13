@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="EditTextBottomBorder">
-        <item name="android:background">@drawable/style_edittextbottomborder</item>
-    </style>
 
-    <style name="ButtonLogin">
-        <item name="android:background">@drawable/style_loginbutton</item>
-    </style>
+
+
 
 
 
