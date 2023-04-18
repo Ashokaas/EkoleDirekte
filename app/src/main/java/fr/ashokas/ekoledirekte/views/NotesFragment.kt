@@ -22,47 +22,8 @@ import org.json.JSONObject
 
 class NotesFragment : Fragment() {
 
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false)
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val frag = getView()
-
-        // Récupérer le Bundle contenant les données transmises
-        val bundle = arguments
-
-        // Récupérer chaque élément individuellement en utilisant la clé correspondante
-        val prenom = bundle?.getString("prenom")
-        val nom = bundle?.getString("nom")
-        val moy = bundle?.getString("moy")
-        val token = bundle?.getString("token")
-        val id = bundle?.getString("id")
-        val photo_url = bundle?.getString("photo_url")
-
-        val viewPager2 = view.findViewById<ViewPager2>(R.id.viewPager)
-        val fragmentList = listOf(
-            TrimestreFragment.newInstance(1),
-            TrimestreFragment.newInstance(2),
-            TrimestreFragment.newInstance(3))
-
-        val adapter = gradesPagerAdapter(this@NotesFragment, fragmentList)
-        viewPager2.adapter = adapter
-        viewPager2.isUserInputEnabled = true
-
-
-
-
-
+    private fun getNotes(token: String?, userViewModel: UserViewModel) {
         CoroutineScope(Dispatchers.IO).launch {
             val notes = CoroutineScope(Dispatchers.IO).async {
                 return@async AccountData.getNotes(
@@ -114,12 +75,56 @@ class NotesFragment : Fragment() {
             println(grades)
 
             withContext(Dispatchers.Main) {
-                val userViewModel = ViewModelProvider(this@NotesFragment)[UserViewModel::class.java]
                 val matieres = notes["matieres"] as Array<Array<Any>>
                 userViewModel.notes = MutableLiveData(grades)
                 userViewModel.matieres = MutableLiveData(matieres)
                 userViewModel.notesAndMatieres = MutableLiveData(Pair(grades, matieres))
-            }
+            }}
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_notes, container, false)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val frag = getView()
+
+        // Récupérer le Bundle contenant les données transmises
+        val bundle = arguments
+
+        // Récupérer chaque élément individuellement en utilisant la clé correspondante
+        val prenom = bundle?.getString("prenom")
+        val nom = bundle?.getString("nom")
+        val moy = bundle?.getString("moy")
+        val token = bundle?.getString("token")
+        val id = bundle?.getString("id")
+        val photo_url = bundle?.getString("photo_url")
+
+        val viewPager2 = view.findViewById<ViewPager2>(R.id.viewPager)
+        val fragmentList = listOf(
+            TrimestreFragment.newInstance(1),
+            TrimestreFragment.newInstance(2),
+            TrimestreFragment.newInstance(3))
+
+        val adapter = gradesPagerAdapter(this@NotesFragment, fragmentList)
+        viewPager2.adapter = adapter
+        viewPager2.isUserInputEnabled = true
+
+
+        val userViewModel = ViewModelProvider(this@NotesFragment)[UserViewModel::class.java]
+        if (userViewModel.notes.value == null) {
+                getNotes(token, userViewModel)
+
+        }
+
+
 
             /*
             var calendar = Calendar.getInstance()
@@ -209,7 +214,7 @@ class NotesFragment : Fragment() {
                 trim1.putSerializable("oui", oui)
                 fragmentList[0].arguments = trim1
             }*/
-        }
+
 
 
 

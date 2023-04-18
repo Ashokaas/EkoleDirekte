@@ -88,6 +88,10 @@ class Accueil : AppCompatActivity() {
                 R.id.notesFragment -> {
                     navController.navigate(R.id.notesFragment, bundle)
                 }
+
+                R.id.devoirsFragment -> {
+                    navController.navigate(R.id.devoirsFragment, bundle)
+                }
             }
             true
         }

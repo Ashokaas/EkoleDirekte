@@ -23,4 +23,8 @@
         android:name="fr.ashokas.ekoledirekte.views.NotesFragment"
         android:label="Notes"
         tools:layout="@layout/fragment_notes" />
+    <fragment
+        android:id="@+id/devoirsFragment"
+        android:name="fr.ashokas.ekoledirekte.views.DevoirsFragment"
+        android:label="DevoirsFragment" />
 </navigation>

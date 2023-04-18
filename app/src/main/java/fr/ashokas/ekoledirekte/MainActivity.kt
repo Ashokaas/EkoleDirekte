@@ -90,10 +90,10 @@ class MainActivity : AppCompatActivity() {
 
         var is_password_visile = false
 
-        val editText = findViewById<EditText>(R.id.user_mdp)
-        editText.setOnTouchListener { view, event ->
+
+        inputPassword.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                if (event.rawX >= (inputPassword.right - inputPassword.compoundDrawables[2].bounds.width())) {
                     // Gestion du clique sur le drawableEnd de l'EditText inputPassword (l'oeil)
                     if (is_password_visile == true) {
                         inputPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
