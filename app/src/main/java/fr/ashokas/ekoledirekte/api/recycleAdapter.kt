@@ -36,7 +36,7 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
         for (mat: JSONObject in matieres) {
             // si c un groupe (Tronc Commun, etc) on l'affiche juste
             if (mat["groupeMatiere"] == true) {
-                dataFinales.add(listOf(0, mat["discipline"] as String))
+                dataFinales.add(listOf(2, mat["discipline"] as String))
             } else {
                 dataFinales.add(listOf(0, mat["discipline"] as String))
                 // On prend les notes de cette matiere
@@ -107,6 +107,11 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
                 view = mInflater.inflate(R.layout.matieretitrelayout, parent, false)
                 MatiereViewHolder(view)
             }
+
+            2 -> {
+                view = mInflater.inflate(R.layout.groupematierelayout, parent, false)
+                MatiereViewHolder(view)
+            }
             else -> {
                 view = mInflater.inflate(R.layout.errorlayout, parent, false)
                 ErrorViewHolder(view)
@@ -124,20 +129,20 @@ class recycleAdapter(context: Context?, data: Pair<Map<String, Any>,Array<JSONOb
                 for (i in 1 until data.size) {
                     val note = data[i] as List<String>
                     val textView = viewHolder.noteViews[i-1]
-                    val note_coef = note[1] + "/" + note[2] + " " + "(" + note[3] + ")"
+                    val note_coef = note[1] + "/" + note[2] + " " + note[3]
                     val coeflen = note[3].toString().length
                     val notespan = SpannableString(note_coef)
-                    /*
+
                     // subscript
                     notespan.setSpan(SubscriptSpan(), 0, note_coef.length - coeflen, 0);
                     // make the subscript text smaller
-                    notespan.setSpan(RelativeSizeSpan(0.5f), note_coef.length - coeflen, note_coef.length, 0)
-                    */
-                    textView.text = note_coef
+                    notespan.setSpan(RelativeSizeSpan(0.8f), note_coef.length - coeflen, note_coef.length, 0)
+
+                    textView.text = notespan
                     textView.setOnClickListener { changerDropdown(viewHolder, note, textView, position) }
                 }
             }
-            0 -> {
+            0, 2 -> {
                 val viewHolder = holder as MatiereViewHolder
                 viewHolder.textView.text = dataFinales[position][1] as String
             }

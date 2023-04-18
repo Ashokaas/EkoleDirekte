@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/loading_progress_bar"
             android:text="Konnektion"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"/>
 

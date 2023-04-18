@@ -174,6 +174,12 @@ class MainActivity : AppCompatActivity() {
                     val id: Int = datas["id"] as Int
                     val message = datas["message"]
                     val photoURL = datas["photo"]
+                    val etablissement = datas["nomEtablissement"]
+                    println(etablissement)
+                    println(etablissement)
+                    println(etablissement)
+                    println(etablissement)
+
                     println(photoURL)
 
 
@@ -187,6 +193,7 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("id", id.toString())
                     intent.putExtra("message", message.toString())
                     intent.putExtra("photoURL", photoURL.toString())
+                    intent.putExtra("etablissement", etablissement.toString())
                     startActivity(intent)
 
 

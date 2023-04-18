@@ -39,6 +39,7 @@ class AccountData {
                     val account: JSONObject = accountJson.getJSONObject("data").getJSONArray("accounts").getJSONObject(0)
                     val prenom = account.getString("prenom")
                     val nom = account.getString("nom")
+                    val etablissement = account.getString("nomEtablissement")
                     val email = account.getString("email")
                     val typeCompte = account.getString("typeCompte")
                     val token = accountJson.getString("token")
@@ -47,6 +48,7 @@ class AccountData {
                         "data" to accountJson,
                         "prenom" to prenom,
                         "nom" to nom,
+                        "nomEtablissement" to etablissement,
                         "code" to 200,
                         "typeCompte" to typeCompte,
                         "token" to token,

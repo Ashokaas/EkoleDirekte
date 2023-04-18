@@ -43,6 +43,7 @@ class Accueil : AppCompatActivity() {
         val token = intent.getStringExtra("token")
         val id = intent.getStringExtra("id")
         var photo_url = intent.getStringExtra("photo_url")
+        val etablissement = intent.getStringExtra("etablissement")
 
 
         // Changement de la couleur de la barre de notification uniquement disponible après Lollipop (Android 5.0)
@@ -77,6 +78,13 @@ class Accueil : AppCompatActivity() {
         // Affichage du nom et du prénom
         val username = findViewById<TextView>(R.id.username)
         username.text = formatage_nom_prenom("$prenom $nom")
+
+        // Affichage de la classe et de l'établissement
+        val classe = findViewById<TextView>(R.id.classe)
+        classe.text = etablissement
+
+
+
 
         // Switch entre fragments avec bundle wooouaw
         navigationView.setOnItemSelectedListener {item ->

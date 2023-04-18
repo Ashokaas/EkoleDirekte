@@ -44,29 +44,26 @@
             android:textSize="14sp" />
 
 
-        <Button
+        <ImageButton
             android:id="@+id/previous_week"
-            android:background=""
-            android:textColor="@color/new_grey2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_bold"
-            android:textAlignment="center"
-            android:text="<" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Semaine précédente"
+            android:src="@drawable/ic_arrow_back"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/next_week"
-            android:background=""
-            android:textColor="@color/new_grey2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_bold"
-            android:textAlignment="center"
-            android:text=">" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Semaine suivante"
+            android:src="@drawable/ic_arrow_forward"/>
+
+
 
     </LinearLayout>
 
@@ -108,7 +105,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,7 +116,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -140,8 +137,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/white"
                 android:textSize="13sp"
-                android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                android:layout_marginVertical="2dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,8 +147,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                android:layout_marginVertical="2dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -174,7 +169,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,7 +180,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -207,7 +202,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -218,7 +213,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -240,7 +235,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -251,7 +246,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginVertical="2dp"
-                android:layout_marginStart="2dp"/>
+                />
 
         </LinearLayout>
 
