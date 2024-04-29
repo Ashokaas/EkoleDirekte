@@ -1,5 +1,5 @@
 # EkoleDirekte
-Refonte de l'application EcoleDirecte grâce à son API
+Refonte de l'application EcoleDirecte grâce à son API (seule la page des notes est implémentée)
 Vous êtes libre de réutiliser notre code.
 
 <img src="https://github.com/Ashokaas/EkoleDirekte/assets/99681959/96258918-adf4-4270-ae7b-10c0f441ce4c" width="30%">
